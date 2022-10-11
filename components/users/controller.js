@@ -29,3 +29,12 @@ exports.login = async (username, password) => {
     return user._id ;
 }
 
+//controller lấy thông tin user
+exports.getUserById = async (id) => {
+
+    const user = await userService.findUserById(id);
+    console.log("user: ", user);
+    return user;
+}
+
+
