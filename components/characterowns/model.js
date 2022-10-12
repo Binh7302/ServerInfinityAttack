@@ -3,21 +3,10 @@ const Schema = mongoose.Schema;
 const ObjectId = Schema.ObjectId;
 
 const characterownSchema = new Schema({
-    id: { type: ObjectId },
-    hp: {
-        type: Number
-    },
-    damage: {
-        type: Number
-    },
-    level: {
-        type: Number
-    },
-    status: {
-        type: Number
-    },
     userID: { type: Schema.Types.ObjectId, ref: 'user' },
     characterID: { type: Schema.Types.ObjectId, ref: 'character' },
+    levelID: { type: Schema.Types.ObjectId, ref: 'level' },
+    status: { type: Number},
 });
 
 module.exports = mongoose.model('characterown', characterownSchema);

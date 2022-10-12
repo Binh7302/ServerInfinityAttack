@@ -19,3 +19,8 @@ exports.getCharacterOwnById = async (id) => {
     });
     return data;
 }
+
+// add nhân vật fire knight cho người chơi đăng kí tài khoản
+exports.addFirstCharacter = async (username) => {
+    await characterownService.addFirstCharacter(username);
+}
