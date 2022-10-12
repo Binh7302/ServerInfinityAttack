@@ -9,7 +9,7 @@ const userSchema = new Schema({
     name: { type: String, required: true  },
     email: { type: String},
     gold: { type: Number },
-    diamond: { type: Number}
+    gem: { type: Number}
 });
 
-module.exports = mongoose.model('user', userSchema);
+module.exports = mongoose.model('users', userSchema);

@@ -39,7 +39,6 @@ mongoose.connect('mongodb+srv://binh7302:binh7302@cluster0.5njb2ki.mongodb.net/I
 app.use(function(req, res, next) {
   next(createError(404));
 });
-
 // error handler
 app.use(function(err, req, res, next) {
   // set locals, only providing error in development

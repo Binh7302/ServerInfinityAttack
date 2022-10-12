@@ -1,7 +1,7 @@
 // tầng giao tiếp với database
 
 const characterownModel = require('./model');
-const characterModel = require('../characters/model');
+// const characterModel = require('../characters/model');
 const levelModel = require('../levels/model');
 const userModel = require('../users/model');
 
