@@ -3,6 +3,7 @@ const userService = require('./service');
 
 // import thư viện mã hóa
 const bcrypt = require('bcryptjs');
+const { Types } = require('mongoose');
 
 // controller đăng kí
 exports.register = async (username, password, confirm_password, name) => {
@@ -10,7 +11,7 @@ exports.register = async (username, password, confirm_password, name) => {
     // bắt lỗi
     let user = await userService.findUserByUsername(username);
     if (user) return "Tài khoản đã tồn tại";
-
+    console.log(user);
     // mã hóa mật khẩu
     const hash = await bcrypt.hash(password, await bcrypt.genSalt(10));
     // lưu vào db
@@ -25,9 +26,28 @@ exports.login = async (username, password) => {
     const user = await userService.findUserByUsername(username);
     if (!user) return "Sai tài khoản hoặc mật khẩu";
     const checkPassword = await bcrypt.compare(password, user.password);
-    if (!checkPassword) return "Sai tài khoản hoặc mật khẩu";
-    return user._id ;
+    if (!checkPassword) return "Sai tài k1hoản hoặc mật khẩu";
+    return user._id;
 }
+
+//controller lấy thông tin user
+exports.getUserById = async (id) => {
+    const user = await userService.findUserById(id);
+    console.log("user: ", user);
+    return user;
+}
+
+//controller lấy thông tin user
+exports.getUserByName = async (name) => {
+    const user = await userService.findUserByName(name);
+    return user;
+}
+exports.updateGoldUser = async (id, gold) => {
+   return await userService.updateGoldUser(id,gold);
+}
+exports.updateGemUser = async (id, gem) => {
+    return await userService.updateGemUser(id,gem);
+ }
 
 //controller lấy thông tin user
 exports.getUserById = async (id) => {
