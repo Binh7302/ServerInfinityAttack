@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 
 //routes
 var indexRouter = require('./routes/index');
-var usersRouter = require('./routes/users');
+var inventoryClient = require('./routes/inventoryClient');
 var apiRouter = require('./routes/api');
 
 var app = express();
@@ -24,7 +24,7 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', indexRouter);
-app.use('/users', usersRouter);
+app.use('/inventoryClient', inventoryClient);
 app.use('/api', apiRouter);
 
 mongoose.connect('mongodb+srv://binh7302:binh7302@cluster0.5njb2ki.mongodb.net/InfinityAttack?retryWrites=true&w=majority', {  
