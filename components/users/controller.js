@@ -49,3 +49,12 @@ exports.updateGemUser = async (id, gem) => {
     return await userService.updateGemUser(id,gem);
  }
 
+//controller lấy thông tin user
+exports.getUserById = async (id) => {
+
+    const user = await userService.findUserById(id);
+    console.log("user: ", user);
+    return user;
+}
+
+
