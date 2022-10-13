@@ -8,7 +8,7 @@ exports.getCharacters = async () => {
         item = {
             _id: item._id,
             name: item.name,       
-            description: item.description,
+            price: item.price,
             index: index + 1,
         }
         return item;

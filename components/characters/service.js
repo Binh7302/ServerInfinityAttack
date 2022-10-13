@@ -1,6 +1,9 @@
 const characterModel = require('./model');
 
 exports.getCharacters = async () => {
-    const character = await characterModel.find();
-    return character;
+    const characters = await characterModel.find();
+    return characters;
+}
+exports.getAllCharacters = async () => {
+
 }
