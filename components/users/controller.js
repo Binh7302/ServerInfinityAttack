@@ -6,8 +6,7 @@ const bcrypt = require('bcryptjs');
 const { Types } = require('mongoose');
 
 // controller đăng kí
-exports.register = async (username, password, confirm_password, name) => {
-
+exports.register = async (username, password,  name) => {
     // bắt lỗi
     let user = await userService.findUserByUsername(username);
     if (user) return "Tài khoản đã tồn tại";
@@ -21,12 +20,15 @@ exports.register = async (username, password, confirm_password, name) => {
 
 //controller đăng nhập
 exports.login = async (username, password) => {
-
+    
     // bắt lỗi
-    const user = await userService.findUserByUsername(username);
+    const user = await userService.findUserByUserName(username);
+    console.log("user: " + user);
     if (!user) return "Sai tài khoản hoặc mật khẩu";
+    console.log("username: " + username + " password: " + password, "userpassword: " + user.password);
     const checkPassword = await bcrypt.compare(password, user.password);
-    if (!checkPassword) return "Sai tài k1hoản hoặc mật khẩu";
+    console.log("checkPassword: " + checkPassword);
+    if (!checkPassword) return "Sai tài khoản hoặc mật khẩu";
     return user._id;
 }
 

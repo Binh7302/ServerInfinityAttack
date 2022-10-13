@@ -15,3 +15,9 @@ exports.getCharacters = async () => {
     });
     return data;
 }
+
+// lấy tên của nhân vật đang sử dụng
+exports.getUsingCharNameById = async (id) => {
+    const name = await characterService.getUsingCharNameById(id);
+    return name;
+}

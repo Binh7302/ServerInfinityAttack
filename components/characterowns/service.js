@@ -9,6 +9,8 @@ const userModel = require('../users/model');
 
 exports.getCharacterOwnss = async (userID) => {
   const charOwn = await characterownModel.find({userID : userID});
+  return charOwn;
+}
 
 exports.getCharacterOwns = async () => {
   const charOwn = await characterownModel.find().populate('userID characterID levelID');

@@ -68,5 +68,13 @@ router.post('/updateGemUser', async function (req, res, next) {
   const user = await userController.updateGemUser(_id, gem);
   return res.json(user);
 });
+// http://localhost:3000/api/getUsingCharNameById
+router.post('/getUsingCharNameById', async function (req, res, next) {
+  const { id } = req.body;
+  console.log("id: ", id);
+  const name = await characterController.getUsingCharNameById(id);
+  console.log("name: ", name);
+  return res.json(name);
+});
 
 module.exports = router;
