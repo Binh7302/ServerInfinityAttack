@@ -5,14 +5,15 @@ const characterModel = require('../characters/model');
 const levelModel = require('../levels/model');
 const userModel = require('../users/model');
 
-//Lấy thông tin danh sách tướng mà người chơi sở hữu
 
 exports.getCharacterOwnss = async (userID) => {
   const charOwn = await characterownModel.find({userID : userID});
+  return charOwn;
+}
 
+//Lấy thông tin danh sách tướng mà người chơi sở hữu
 exports.getCharacterOwns = async () => {
   const charOwn = await characterownModel.find().populate('userID characterID levelID');
-
   return charOwn;
 }
 

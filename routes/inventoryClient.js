@@ -9,7 +9,6 @@ const levelController = require('../components/levels/controller');
 router.post('/post-character-own', async function (req, res, next) {
   const { userID } = req.body;
   const data = await characterOwnController.getCharacterOwnById(userID);
-  // console.log(data);
   return res.json(data);
 });
 
