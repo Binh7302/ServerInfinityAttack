@@ -4,6 +4,3 @@ exports.getCharacters = async () => {
     const characters = await characterModel.find();
     return characters;
 }
-exports.getAllCharacters = async () => {
-
-}
