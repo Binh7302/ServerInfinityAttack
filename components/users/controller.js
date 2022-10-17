@@ -10,6 +10,8 @@ exports.register = async (username, password,  name) => {
     // bắt lỗi
     let user = await userService.findUserByUsername(username);
     if (user) return "Tài khoản đã tồn tại";
+    let user1 = await userService.findUserByName(name);
+    if (user1) return "Tên nhân vật đã tồn tại";
     console.log(user);
     // mã hóa mật khẩu
     const hash = await bcrypt.hash(password, await bcrypt.genSalt(10));
@@ -57,6 +59,11 @@ exports.getUserById = async (id) => {
     const user = await userService.findUserById(id);
     console.log("user: ", user);
     return user;
+}
+
+exports.getTop5Users = async () => {
+    const top5Users = await  userService.getTop5Users();
+    return top5Users;
 }
 
 
