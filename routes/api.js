@@ -4,6 +4,9 @@ var router = express.Router();
 const userController = require('../components/users/controller');
 const characterController = require('../components/characters/controller');
 const characterOwnController = require('../components/characterowns/controller')
+const spellController = require('../components/spells/controller');
+const spellOwnController = require('../components/spellowns/controller');
+
 // http://localhost:3000/api/login
 router.post('/login', async function (req, res, next) {
   const { username, password } = req.body;
@@ -68,6 +71,64 @@ router.post('/updateGemUser', async function (req, res, next) {
   const user = await userController.updateGemUser(_id, gem);
   return res.json(user);
 });
+//http://localhost:3000/api/get-character-own
+router.post('/getcharacterown', async function (req, res, next) {
+  const { userID } = req.body;
+  const data = await characterOwnController.getCharacterOwnById(userID);
+  return res.json(data);
+});
+
+// http://localhost:3000/api/get-Characters
+router.post('/getCharacters', async function (req, res, next) {
+  const data = await characterController.getCharacters();
+  console.log(data);
+  return res.json(data);
+});
+// http://localhost:3000/api/addNewCharacter
+router.post('/addNewCharacter', async function (req, res, next) {
+  const {userID,characterID,status} = req.body;
+  const data = await characterOwnController.addNewCharacter(userID,characterID,status);
+  console.log(data);
+  return res.json(data);
+});
+// http://localhost:3000/api/changeStatusCharacterOwn
+router.post('/changeStatusCharacterOwn', async function (req, res, next) {
+  const {_id} = req.body;
+  const data = await characterOwnController.changeStatusCharacterOwn(_id);
+  console.log(data);
+  return res.json(data);
+});
+
+
+// https://localhost:3000/api/getSpells
+router.post('/getSpells',async function(req,res,next){
+  const data = await spellController.getSpells();
+  console.log(data);
+  return res.json(data);
+})
+
+// https://localhost:3000/api/getSpellOwn
+router.post('/getSpellOwn',async function(req,res,next){
+  const {userID} = req.body;
+  const data = await spellOwnController.getSpellOwnById(userID);
+  console.log(data);
+  return res.json(data);
+})
+// https://localhost:3000/api/updateAmountSpell
+router.post('/updateAmountSpell',async function(req,res,next){
+  const {_id,amount} = req.body;
+  console.log(_id,amount);
+  const data = await spellOwnController.updateAmount(_id,amount);
+  console.log(data);
+  return res.json(data);
+})
+// https://localhost:3000/api/updateAmountSpell
+router.post('/addNewSpellOwn',async function(req,res,next){
+  const {userID,spellID,amount} = req.body;
+  const data = await spellOwnController.addNewSpellOwn(userID,spellID,amount);
+  console.log(data);
+  return res.json(data);
+})
 // http://localhost:3000/api/getUsingCharNameById
 router.post('/getUsingCharNameById', async function (req, res, next) {
   const { id } = req.body;

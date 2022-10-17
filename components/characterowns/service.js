@@ -12,6 +12,7 @@ exports.getCharacterOwnss = async (userID) => {
 }
 
 //Lấy thông tin danh sách tướng mà người chơi sở hữu
+
 exports.getCharacterOwns = async () => {
   const charOwn = await characterownModel.find().populate('userID characterID levelID');
   return charOwn;
@@ -37,4 +38,15 @@ exports.getCharacterOwnByID = async (id) => {
 exports.update = async (id, characterOwn) => {
   await characterownModel.findByIdAndUpdate(id, characterOwn);
 }
+exports.addNewCharacter = async (userID,characterID,status) => {
+  const level = await levelModel.findOne({ level: 1, characterID: characterID });
+  const charOwn = new characterownModel({ userID: userID, characterID: characterID, levelID: level._id, status: status});
+  console.log(charOwn);
+  return await charOwn.save();
+}
+// exports.changeStatusCharacterOwn = async (userID,_id) => {
+//   const preCharacterOwn = await characterownModel.findOne({userID:userIDstatus : 1});
+//   await characterownModel.updateOne({_id : preCharacterOwn._id},{status : 0});
+//   return await characterownModel.updateOne({_id : _id,status : 1});
+// }
 
