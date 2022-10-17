@@ -137,5 +137,11 @@ router.post('/getUsingCharNameById', async function (req, res, next) {
   console.log("name: ", name);
   return res.json(name);
 });
+// http://localhost:3000/api/getTop5Users
+router.get('/getTop5Users', async function (req, res, next) {
+  const top5Users = await userController.getTop5Users();
+  console.log("Route api top5users: " + top5Users);
+  return res.json(top5Users);
+});
 
 module.exports = router;
