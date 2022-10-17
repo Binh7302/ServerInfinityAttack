@@ -4,9 +4,10 @@ const ObjectId = Schema.ObjectId;
 
 const spellChema = new Schema({
     id: { type: ObjectId },
-    name: { type: String, required: true },
-    price: { type: String, required: true},
-    description: { type: String, required: true  },
-    cooldown: { type: String}
+    name: { type: String},
+    description: { type: String},
+    cooldown: { type: String},
+    price: { type: Number},
+    total:{type : Number}
 });
 module.exports = mongoose.model('spell', spellChema);

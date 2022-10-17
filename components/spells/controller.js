@@ -8,10 +8,10 @@ exports.getSpells = async () => {
         item = {
             _id: item._id,
             name: item.name,       
-            price: item.price,
             description:item.description,
             cooldown:item.cooldown,
-            index: index + 1,
+            price: item.price,
+            total:item.total
         }
         return item;
     });

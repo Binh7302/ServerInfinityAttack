@@ -5,6 +5,8 @@ const userController = require('../components/users/controller');
 const characterController = require('../components/characters/controller');
 const characterOwnController = require('../components/characterowns/controller')
 const spellController = require('../components/spells/controller');
+const spellOwnController = require('../components/spellowns/controller');
+
 // http://localhost:3000/api/login
 router.post('/login', async function (req, res, next) {
   const { username, password } = req.body;
@@ -76,8 +78,8 @@ router.post('/getcharacterown', async function (req, res, next) {
   return res.json(data);
 });
 
-// http://localhost:3000/api/get-characters
-router.post('/getcharacters', async function (req, res, next) {
+// http://localhost:3000/api/get-Characters
+router.post('/getCharacters', async function (req, res, next) {
   const data = await characterController.getCharacters();
   console.log(data);
   return res.json(data);
@@ -101,6 +103,29 @@ router.post('/changeStatusCharacterOwn', async function (req, res, next) {
 // https://localhost:3000/api/getSpells
 router.post('/getSpells',async function(req,res,next){
   const data = await spellController.getSpells();
+  console.log(data);
+  return res.json(data);
+})
+
+// https://localhost:3000/api/getSpellOwn
+router.post('/getSpellOwn',async function(req,res,next){
+  const {userID} = req.body;
+  const data = await spellOwnController.getSpellOwnById(userID);
+  console.log(data);
+  return res.json(data);
+})
+// https://localhost:3000/api/updateAmountSpell
+router.post('/updateAmountSpell',async function(req,res,next){
+  const {_id,amount} = req.body;
+  console.log(_id,amount);
+  const data = await spellOwnController.updateAmount(_id,amount);
+  console.log(data);
+  return res.json(data);
+})
+// https://localhost:3000/api/updateAmountSpell
+router.post('/addNewSpellOwn',async function(req,res,next){
+  const {userID,spellID,amount} = req.body;
+  const data = await spellOwnController.addNewSpellOwn(userID,spellID,amount);
   console.log(data);
   return res.json(data);
 })
