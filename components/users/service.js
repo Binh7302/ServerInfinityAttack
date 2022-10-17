@@ -1,8 +1,13 @@
 const userModel = require('./model');
 
 exports.register = async (username, password, name) => {
-    const user = new userModel({ username, password, name });
+    const user = new userModel({ username, password, name, gem: 0, gold: 0 });
     return await user.save();
+}
+
+exports.findUserByUserName = async (username) => {
+    const user = await userModel.findOne({ username: username }, 'id username password name email gold gem');
+    return user;
 }
 
 exports.findUserByName = async (name) => {

@@ -9,7 +9,6 @@ const levelController = require('../components/levels/controller');
 router.post('/post-character-own', async function (req, res, next) {
   const { userID } = req.body;
   const data = await characterOwnController.getCharacterOwnById(userID);
-  // console.log(data);
   return res.json(data);
 });
 
@@ -19,8 +18,25 @@ router.post('/update-character-own', async function (req, res, next) {
   const levelData = await levelController.getLevelUpdate(characterID, level);
   let data = await characterOwnController.getCharacterOwn(characterOwnID);
   data.levelID = levelData._id
-  await characterOwnController.update(characterOwnID,data);
+  await characterOwnController.update(characterOwnID, data);
   return res.json(data);
+});
+
+// http://localhost:3000/inventoryClient/update-status-character-own
+router.post('/update-status-character-own', async function (req, res, next) {
+  //cách khác
+  //findOne với điều kiện userID, status = 1, đc data, thay đổi data.status = 0 ( cách tìm thông thường khi 2 khóa chính là userID và characterID)
+  const { characterOwnIDOld, characterOwnIDNew } = req.body;
+  console.log("old: " + characterOwnIDOld + " new: " + characterOwnIDNew);
+  // character old là character đang có status = 1 
+  let dataOld = await characterOwnController.getCharacterOwn(characterOwnIDOld);
+  dataOld.status = 0;
+  await characterOwnController.update(characterOwnIDOld, dataOld);
+  // character new là character đang có status = 0 
+  let dataNew = await characterOwnController.getCharacterOwn(characterOwnIDNew);
+  dataNew.status = 1;
+  await characterOwnController.update(characterOwnIDNew, dataNew);
+  return ;
 });
 
 // http://localhost:3000/inventoryClient/get-character-own

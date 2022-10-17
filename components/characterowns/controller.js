@@ -8,9 +8,9 @@ exports.getCharacterOwnById = async (id) => {
     data = data.map((item) => {
         item = {
             _id: item._id,
-            userID: item.userID._id,
-            characterID: item.characterID._id,
-            level: item.levelID._id,
+            userID: item.userID,
+            characterID: item.characterID,
+            levelID: item.levelID,
             status: item.status,
         }
         return item;

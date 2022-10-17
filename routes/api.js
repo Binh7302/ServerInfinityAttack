@@ -129,5 +129,13 @@ router.post('/addNewSpellOwn',async function(req,res,next){
   console.log(data);
   return res.json(data);
 })
+// http://localhost:3000/api/getUsingCharNameById
+router.post('/getUsingCharNameById', async function (req, res, next) {
+  const { id } = req.body;
+  console.log("id: ", id);
+  const name = await characterController.getUsingCharNameById(id);
+  console.log("name: ", name);
+  return res.json(name);
+});
 
 module.exports = router;
