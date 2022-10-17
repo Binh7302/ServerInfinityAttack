@@ -18,6 +18,22 @@ exports.getCharacterOwnById = async (id) => {
     return data;
 }
 
+//function created by Tien
+exports.getCharacterOwnBy_Id = async (id) => {
+    let data = await characterownService.getCharacterOwns();
+    data = data.filter(item => item.userID.equals(id));
+    data = data.map((item) => {
+        item = {
+            _id: item._id,
+            userID: item.userID._id,
+            characterID: item.characterID._id,
+            levelID: item.levelID._id,
+            status: item.status,
+        }
+        return item;
+    });
+    return data;
+}
 // add nhân vật fire knight cho người chơi đăng kí tài khoản
 exports.addFirstCharacter = async (username) => {
     await characterownService.addFirstCharacter(username);
