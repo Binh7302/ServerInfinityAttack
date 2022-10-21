@@ -11,6 +11,11 @@ exports.getSpellOwns = async () => {
   return charOwn;
 }
 
+exports.getSpellByID = async (id) => {
+  const charOwn = await spellownModel.findById(id);
+  return charOwn;
+}
+
 exports.updateAmount = async (id, amount) => {
   const filter = { _id: id };
   const update = { amount: amount };
@@ -26,5 +31,10 @@ exports.addNewSpell = async (userID, spellID, amount) => {
   console.log(charOwn);
   return await charOwn.save();
 }
+
+// exports.getAmountSpell = async (characterID, userID) => {
+//   const data = await levelModel.findOne({ level: level, characterID: characterID });
+//   return data;
+// }
 
 

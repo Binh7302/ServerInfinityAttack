@@ -1,10 +1,10 @@
 // import service
 const spellService = require('./service');
 
-// Lấy danh sách tướng
+// Lấy danh sách spell
 exports.getSpells = async () => {
     let data = await spellService.getSpells();
-    data = data.map((item,index) => {
+    data = data.map((item) => {
         item = {
             _id: item._id,
             name: item.name,       

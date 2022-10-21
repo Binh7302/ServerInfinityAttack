@@ -4,6 +4,8 @@ var router = express.Router();
 const characterController = require('../components/characters/controller');
 const characterOwnController = require('../components/characterowns/controller');
 const levelController = require('../components/levels/controller');
+const spellController = require('../components/spells/controller');
+const spellOwnController = require('../components/spellowns/controller');
 
 // http://localhost:3000/inventoryClient/post-character-own
 router.post('/post-character-own', async function (req, res, next) {
@@ -39,9 +41,24 @@ router.post('/update-status-character-own', async function (req, res, next) {
   return ;
 });
 
+// http://localhost:3000/inventoryClient/get-spells
+router.get('/get-spells', async function (req, res, next) {
+  const data = await spellController.getSpells();
+  console.log(data);
+  return res.json(data);
+});
+
+// http://localhost:3000/inventoryClient/post-spells-own
+router.post('/post-spells-own', async function (req, res, next) {
+  const { userID } = req.body;
+  const data = await spellOwnController.getSpellOwnByUserId(userID);
+  // console.log(data);
+  return res.json(data);
+});
+
 // http://localhost:3000/inventoryClient/get-character-own
 router.get('/get-character-own', async function (req, res, next) {
-  const data = await characterOwnController.getCharacterOwnById("6344e7bf12a13086ef55c19a");
+  const data = await characterOwnController.getCharacterOwnById("6345a02f1d8f5da83dc48826");
   console.log(data);
   return res.json(data);
 });
