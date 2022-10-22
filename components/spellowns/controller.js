@@ -24,7 +24,6 @@ exports.addNewSpellOwn = async(userID,spellID,amount) =>{
     const spellOwn = spellownService.addNewSpell(userID,spellID,amount);
     return spellOwn;
 }
-
 // Spell Own by Binh
 exports.getSpellOwnByUserId = async (userID) => {
     let data = await spellownService.getSpellOwns();
@@ -56,4 +55,10 @@ exports.getSpellOwnById = async (id,userID) => {
         return item;
     });
     return data;
+}
+
+// lấy SpellOwns bằng userID
+exports.getSpellOwnsByUId = async (id) => {
+    const spellOwns = await spellownService.getSpellOwnsByID(id);
+    return spellOwns;
 }

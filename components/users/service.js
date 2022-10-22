@@ -60,3 +60,7 @@ exports.getTop5Users = async () => {
     console.log("top5users: " + top5Users);
     return top5Users;
 }
+
+exports.getUsers = async() => {
+    return users = await userModel.find();
+}

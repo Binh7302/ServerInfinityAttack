@@ -32,9 +32,11 @@ exports.addNewSpell = async (userID, spellID, amount) => {
   return await charOwn.save();
 }
 
-// exports.getAmountSpell = async (characterID, userID) => {
-//   const data = await levelModel.findOne({ level: level, characterID: characterID });
-//   return data;
-// }
+// Lấy spellOwn bằng userID
+exports.getSpellOwnsByID = async (id) => {
+  const spellOwns = await spellownModel.find({ userID: id }).populate('userID spellID');
+  return spellOwns;
+
+}
 
 

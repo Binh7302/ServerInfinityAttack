@@ -77,16 +77,6 @@ router.post('/getcharacterown', async function (req, res, next) {
   const data = await characterOwnController.getCharacterOwnById(userID);
   return res.json(data);
 });
-
-//By Tien
-//http://localhost:3000/api/get-character-own
-router.post('/getowncharacter', async function (req, res, next) {
-  console.log("characterasdlfkjasldfjsldf");
-  const { userID } = req.body;
-  const data = await characterOwnController.getCharacterOwnBy_Id(userID);
-  return res.json(data);
-});
-
 // http://localhost:3000/api/get-Characters
 router.post('/getCharacters', async function (req, res, next) {
   const data = await characterController.getCharacters();

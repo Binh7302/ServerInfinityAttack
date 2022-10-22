@@ -56,6 +56,7 @@ router.post('/post-spells-own', async function (req, res, next) {
   return res.json(data);
 });
 
+
 // http://localhost:3000/inventoryClient/get-character-own
 router.get('/get-character-own', async function (req, res, next) {
   const data = await characterOwnController.getCharacterOwnById("6345a02f1d8f5da83dc48826");

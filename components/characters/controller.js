@@ -16,8 +16,30 @@ exports.getCharacters = async () => {
     return data;
 }
 
-// lấy tên của nhân vật đang sử dụng
+// lấy tên của nhân vật đang sử dụng bằng USERID
 exports.getUsingCharNameById = async (id) => {
     const name = await characterService.getUsingCharNameById(id);
     return name;
+}
+
+// lấy chi tiết nhân vật bằng CHARID
+exports.getCharById = async (id) => {
+    const char = await characterService.getCharById(id);
+    return char;
+}
+
+
+// cật nhật lại giá nhân vật
+exports.updatePrice = async (id, price) => {
+    return await characterService.updatePrice(id, price);
+ }
+
+ exports.getCharsHaveById = async (id) => {
+    const charsHave = await characterService.getCharsHaveById(id);
+    return charsHave;
+ }
+
+ exports.getCharByName = async (name) => {
+    const char = await characterService.getCharByName(name);
+    return char;
 }

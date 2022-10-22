@@ -2,6 +2,7 @@
 
 const characterownModel = require('./model');
 const characterModel = require('../characters/model');
+const charOwnModel = require('../characterowns/model');
 const levelModel = require('../levels/model');
 const userModel = require('../users/model');
 
@@ -50,3 +51,26 @@ exports.addNewCharacter = async (userID,characterID,status) => {
 //   return await characterownModel.updateOne({_id : _id,status : 1});
 // }
 
+exports.deleteCharOwnById = async(id) => {
+  await characterownModel.findByIdAndDelete(id);
+}
+
+exports.getCharOwnsById = async(id) => {
+  const charOwns = await characterownModel.find({userID: id}).populate('userID characterID levelID');
+  return charOwns;
+}
+
+exports.getCharOwnById = async(id) => {
+  const charOwn = await characterownModel.findOne({_id: id}).populate('userID characterID levelID');
+  return charOwn;
+}
+
+exports.updateLevel = async(id, levelID) => {
+   await characterownModel.findByIdAndUpdate(id, {levelID: levelID}).populate('userID characterID');
+}
+
+exports.setUsingForFirstChar = async(UID) => {
+  const firstChar = await characterModel.findOne({ name: "Fire Knight"});
+  const charOwn = await charOwnModel.findOne({userID: UID, characterID: firstChar._id});
+  await charOwnModel.findByIdAndUpdate(charOwn._id,{status: 1});
+}

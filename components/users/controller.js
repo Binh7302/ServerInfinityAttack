@@ -1,3 +1,5 @@
+//Game
+
 // import service
 const userService = require('./service');
 
@@ -8,7 +10,7 @@ const { Types } = require('mongoose');
 // controller đăng kí
 exports.register = async (username, password,  name) => {
     // bắt lỗi
-    let user = await userService.findUserByUsername(username);
+    let user = await userService.findUserByUserName(username);
     if (user) return "Tài khoản đã tồn tại";
     let user1 = await userService.findUserByName(name);
     if (user1) return "Tên nhân vật đã tồn tại";
@@ -66,4 +68,19 @@ exports.getTop5Users = async () => {
     return top5Users;
 }
 
-
+// lấy danh sách users
+exports.getUsers = async () => {
+    let data = await userService.getUsers();
+    data = data.map((item,index) => {
+        item = {
+            _id: item._id,
+            name: item.name,
+            username: item.username,
+            index: index + 1,
+            gem: item.gem,
+            gold: item.gold,
+        }
+        return item;
+    });
+    return data;
+}

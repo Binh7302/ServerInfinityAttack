@@ -6,11 +6,15 @@ const bodyParser = require('body-parser');
 var logger = require('morgan');
 const mongoose = require('mongoose');
 
+const cors = require('cors');
+const session = require('express-session');
+
 
 //routes
-var indexRouter = require('./routes/index');
+var ownerRouter = require('./routes/owner');
 var inventoryClient = require('./routes/inventoryClient');
 var apiRouter = require('./routes/api');
+var adminRouter = require('./routes/admin');
 
 var app = express();
 
@@ -24,10 +28,23 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+app.use(session({
+  secret: 'admin',
+  resave: true,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
+app.use(cors());
+app.all('/', function (request, response, next) {
+  response.header("Access-Control-Allow-Origin", "*");
+  response.header("Access-Control-Allow-Headers", "X-Requested-With");
+  next();
+});
 
-app.use('/', indexRouter);
+app.use('/owner', ownerRouter);
 app.use('/inventoryClient', inventoryClient);
 app.use('/api', apiRouter);
+app.use('/admin', adminRouter);
 
 mongoose.connect('mongodb+srv://binh7302:binh7302@cluster0.5njb2ki.mongodb.net/InfinityAttack?retryWrites=true&w=majority', {  
   useNewUrlParser: true,

@@ -34,6 +34,7 @@ exports.getCharacterOwnBy_Id = async (id) => {
     });
     return data;
 }
+
 // add nhân vật fire knight cho người chơi đăng kí tài khoản
 exports.addFirstCharacter = async (username) => {
     await characterownService.addFirstCharacter(username);
@@ -54,3 +55,27 @@ exports.addNewCharacter = async (userID,characterID,status) =>{
 // exports.changeStatusCharacterOwn = async (_id) =>{
 //     return await characterownService.changeStatusCharacterOwn(_id);
 // }
+
+exports.deleteCharOwnById = async (id) => {
+    await characterownService.deleteCharOwnById(id);
+}
+
+// tìm charOwns bằng userID
+exports.getCharOwnsById =async (id) => {
+    const charOwns = await characterownService.getCharOwnsById(id);
+    return charOwns;
+}
+
+// tìm charOwn bằng charOwnID
+exports.getCharOwnById =async (id) => {
+    const charOwn = await characterownService.getCharOwnById(id);
+    return charOwn;
+}
+
+exports.updateLevel = async(id, levelID) => {
+    await characterownService.updateLevel(id, levelID);
+ }
+
+ exports.setUsingForFirstChar = async (UID) => {
+    await characterownService.setUsingForFirstChar(UID);
+ }
