@@ -36,8 +36,8 @@ exports.getCharacterOwnByID = async (id) => {
   return charOwn;
 }
 
-exports.update = async (id, characterOwn) => {
-  await characterownModel.findByIdAndUpdate(id, characterOwn);
+exports.update = async (_id, characterOwn) => {
+  return await characterownModel.findByIdAndUpdate(_id,characterOwn);
 }
 exports.addNewCharacter = async (userID,characterID,status) => {
   const level = await levelModel.findOne({ level: 1, characterID: characterID });

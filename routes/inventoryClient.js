@@ -29,18 +29,16 @@ router.post('/update-status-character-own', async function (req, res, next) {
   //cách khác
   //findOne với điều kiện userID, status = 1, đc data, thay đổi data.status = 0 ( cách tìm thông thường khi 2 khóa chính là userID và characterID)
   const { characterOwnIDOld, characterOwnIDNew } = req.body;
-  console.log("old: " + characterOwnIDOld + " new: " + characterOwnIDNew);
   // character old là character đang có status = 1 
-  let dataOld = await characterOwnController.getCharacterOwn(characterOwnIDOld);
+  const dataOld = await characterOwnController.getCharacterOwn(characterOwnIDOld);
   dataOld.status = 0;
   await characterOwnController.update(characterOwnIDOld, dataOld);
   // character new là character đang có status = 0 
   let dataNew = await characterOwnController.getCharacterOwn(characterOwnIDNew);
   dataNew.status = 1;
-  await characterOwnController.update(characterOwnIDNew, dataNew);
-  return ;
+  const data = await characterOwnController.update(characterOwnIDNew, dataNew);
+  return res.json(data);
 });
-
 // http://localhost:3000/inventoryClient/get-spells
 router.get('/get-spells', async function (req, res, next) {
   const data = await spellController.getSpells();

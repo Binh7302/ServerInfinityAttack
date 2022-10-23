@@ -74,7 +74,7 @@ router.post('/updateGemUser', async function (req, res, next) {
 //http://localhost:3000/api/get-character-own
 router.post('/getcharacterown', async function (req, res, next) {
   const { userID } = req.body;
-  const data = await characterOwnController.getCharacterOwnById(userID);
+  const data = await characterOwnController.getCharacterOwnBy_Id(userID);
   return res.json(data);
 });
 // http://localhost:3000/api/get-Characters
@@ -109,7 +109,7 @@ router.post('/getSpells',async function(req,res,next){
 // https://localhost:3000/api/getSpellOwn
 router.post('/getSpellOwn',async function(req,res,next){
   const {userID} = req.body;
-  const data = await spellOwnController.getSpellOwnById(userID);
+  const data = await spellOwnController.getSpellOwnsById(userID);
   console.log(data);
   return res.json(data);
 })
@@ -142,5 +142,4 @@ router.get('/getTop5Users', async function (req, res, next) {
   console.log("Route api top5users: " + top5Users);
   return res.json(top5Users);
 });
-
 module.exports = router;

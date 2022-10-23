@@ -47,7 +47,7 @@ exports.getCharacterOwn = async (id) => {
 }
 
 exports.update = async (id, characterOwn) => {
-    await characterownService.update(id, characterOwn);
+    return await characterownService.update(id, characterOwn);
 }
 exports.addNewCharacter = async (userID,characterID,status) =>{
     return await characterownService.addNewCharacter(userID,characterID,status);
