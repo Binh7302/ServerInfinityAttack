@@ -2,7 +2,7 @@
 const spellownService = require('./service');
 
 // Lấy chi tiết danh sách spell 1 người chơi sỡ hữu
-exports.getSpellOwnsById = async (id) => {
+exports.getSpellOwnsById = async (id) => {  
     let data = await spellownService.getSpellOwns();
     data = data.filter(item => item.userID.equals(id));
     data = data.map((item) => {
