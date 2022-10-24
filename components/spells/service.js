@@ -13,3 +13,8 @@ exports.getSpellById = async (id) => {
 exports.updateSpellById = async (id, description, cooldown, price, total) => {
     await spellModel.findByIdAndUpdate(id, { description: description, cooldown: cooldown, price: price, total: total});
 }
+
+exports.getSpellByName = async (name) => {
+    const spell = await spellModel.findOne({ name: name });
+    return spell;
+}

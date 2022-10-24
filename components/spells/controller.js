@@ -29,3 +29,8 @@ exports.getSpellById = async (id) => {
 exports.updateSpellById = async (id, description, cooldown, price, total) => {
     await spellService.updateSpellById(id, description, cooldown, price, total);
 }
+
+exports.getSpellByName = async (name) => {
+    const spell = spellService.getSpellByName(name);
+    return spell;
+}

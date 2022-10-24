@@ -1,5 +1,6 @@
 // tầng giao tiếp với database
 const spellownModel = require('./model');
+const spellModel = require('../spells/model');
 const characterModel = require('../characters/model');
 const levelModel = require('../levels/model');
 const userModel = require('../users/model');
@@ -27,16 +28,43 @@ exports.updateAmount = async (id, amount) => {
   return [];
 }
 exports.addNewSpell = async (userID, spellID, amount) => {
-  const charOwn = new spellownModel({ userID: userID, spellID: spellID, amount: amount });
-  console.log(charOwn);
-  return await charOwn.save();
+  const spellOwn = new spellownModel({ userID: userID, spellID: spellID, amount: amount });
+  console.log("spellOwn: " + spellOwn);
+  return await spellOwn.save();
 }
 
-// Lấy spellOwn bằng userID
-exports.getSpellOwnsByID = async (id) => {
-  const spellOwns = await spellownModel.find({ userID: id }).populate('userID spellID');
+// Lấy spellOwns bằng userID
+exports.getSpellOwnsByUID = async (uid) => {
+  const spellOwns = await spellownModel.find({ userID: uid }).populate('userID spellID');
   return spellOwns;
+}
 
+exports.getSpellOwnBySpellID = async (id) => {
+  const spellOwn = await spellownModel.findOne({ _id: id });
+  return spellOwn;
+}
+
+exports.deleteSpellOwnBySpellID = async (id) => {
+  await spellownModel.findByIdAndDelete(id);
+}
+
+exports.getSpellOwnsHaveByUID = async (UID) => {
+  const spellOwnsHave = await spellownModel.find({ userID: UID });
+  return spellOwnsHave;
+}
+
+exports.addNewSpellOwnByUIDAndSpellID = async (UID, spellID) => {
+  const newSpellOwn = new spellownModel({ userID: UID, spellID: spellID, amount: 1 });
+  return await newSpellOwn.save();
+}
+
+exports.getSpellOwnBySpellOwnID = async (spellOwnId) => {
+  const spellOwn = await spellownModel.findOne({ _id: spellOwnId }).populate('spellID userID');
+  return spellOwn;
+}
+
+exports.updateSpellOwnBySpellOwnId = async (spellOwnId, amount) => {
+  await spellownModel.findByIdAndUpdate(spellOwnId, {amount: amount});
 }
 
 

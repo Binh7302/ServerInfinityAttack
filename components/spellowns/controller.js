@@ -21,8 +21,7 @@ exports.updateAmount = async (id,amount) =>{
    return await spellownService.updateAmount(id, amount);
 }
 exports.addNewSpellOwn = async(userID,spellID,amount) =>{
-    const spellOwn = spellownService.addNewSpell(userID,spellID,amount);
-    return spellOwn;
+    await spellownService.addNewSpell(userID,spellID,amount);
 }
 // Spell Own by Binh
 exports.getSpellOwnByUserId = async (userID) => {
@@ -58,7 +57,34 @@ exports.getSpellOwnById = async (id,userID) => {
 }
 
 // lấy SpellOwns bằng userID
-exports.getSpellOwnsByUId = async (id) => {
-    const spellOwns = await spellownService.getSpellOwnsByID(id);
+exports.getSpellOwnsByUId = async (uid) => {
+    const spellOwns = await spellownService.getSpellOwnsByUID(uid);
     return spellOwns;
+}
+
+exports.getSpellOwnBySpellID = async (id) => {
+    const spellOwn = await spellownService.getSpellOwnBySpellID(id);
+    return spellOwn;
+}
+
+exports.deleteSpellOwnBySpellID = async (id) => {
+    await spellownService.deleteSpellOwnBySpellID(id);
+}
+
+exports.getSpellOwnsHaveByUID = async (UID) => {
+    const spellOwnsHave = await spellownService.getSpellOwnsHaveByUID(UID);
+    return spellOwnsHave;
+}
+
+exports.addNewSpellOwnByUIDAndSpellID = async (UID, spellID) => {
+    await spellownService.addNewSpellOwnByUIDAndSpellID(UID, spellID);
+}
+
+exports.getSpellOwnBySpellOwnID = async (spellOwnID) => {
+    const spellOwn = await spellownService.getSpellOwnBySpellOwnID(spellOwnID);
+    return spellOwn;
+}
+
+exports.updateSpellOwnBySpellOwnId = async (spellOwnId, amount) => {
+    await spellownService.updateSpellOwnBySpellOwnId(spellOwnId, amount);
 }

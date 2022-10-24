@@ -88,10 +88,10 @@
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-8" style="display: inline-block;">
-                            <h2>Danh sách <b>Spell Sở Hữu</b></h2>
+                            <h2>Danh sách <b>Spell Sở Hữu user {{user.username}}</b></h2>
                         </div>
                         <div class="col-sm-4">
-                            <form action="/admin/addCharOwn" method="get" role="form">
+                            <form action="/admin/{{UID}}/addSpellOwn" method="get" role="form">
                                 <button style="margin-top: 15px; margin-left: 203px; width: 100px;"
                                     class="btn btn-theme btn-block" type="submit"><i class="fa fa-plus"></i>Thêm
                                     Mới</button>
@@ -105,6 +105,7 @@
                             <th style="width: 80px;">Tên spell</th>
                             <th style="width: 80px;">Số lượng</th>
                             <th style="width: 80px;"></th>
+                            <th style="width: 80px;"></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -113,8 +114,13 @@
                             <td>{{this.spellID.name}}</td>
                             <td>{{this.amount}}</td>
                             <td>
-                                <form action="/admin/{{this._id}}/spellEdit" method="get" role="form">
+                                <form action="/admin/{{this._id}}/spellOwnEdit" method="get" role="form">
                                     <button class="btn btn-theme btn-block" type="submit"></i>Chỉnh sửa</button>
+                                </form>
+                            </td>
+                            <td>
+                                <form action="/admin/{{this._id}}/spellOwnDelete/{{this.userID._id}}" method="post" role="form">
+                                    <button class="btn btn-theme btn-block" type="submit"></i>Xóa</button>
                                 </form>
                             </td>
                         </tr>

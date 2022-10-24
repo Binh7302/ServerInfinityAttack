@@ -99,21 +99,22 @@ router.post('/:id/userEdit', [authentication.checkLoginAdmin], async function (r
 // charOwn
 router.get('/:id/charOwn', [authentication.checkLoginAdmin], async function (req, res, next) {
   const { id } = req.params;
+  const user = await userController.getUserById(id);
   const charOwns = await charOwnController.getCharOwnsById(id);
-  res.render('charOwn', { charOwns: charOwns, UID: id });
+  res.render('charOwn', { charOwns: charOwns, UID: id, user: user });
 });
 
 // charOwn delete
 router.post('/:id/charOwnDelete/:UID', [authentication.checkLoginAdmin], async function (req, res, next) {
   const { id, UID } = req.params;
   const charOwn = await charOwnController.getCharOwnById(id);
-  if(charOwn.status == 1){
+  if (charOwn.status == 1) {
     await charOwnController.setUsingForFirstChar(UID);
   }
-  if(charOwn.characterID.name != "Fire Knight"){
+  if (charOwn.characterID.name != "Fire Knight") {
     await charOwnController.deleteCharOwnById(id);
     const charOwns = await charOwnController.getCharOwnsById(UID);
-    console.log("charown ",charOwns);
+    console.log("charown ", charOwns);
     res.render('charOwn', { charOwns: charOwns, UID: UID });
   }
 });
@@ -127,7 +128,7 @@ router.get('/:id/addCharOwn', [authentication.checkLoginAdmin], async function (
 
 router.post('/:id/addCharOwn', [authentication.checkLoginAdmin], async function (req, res, next) {
   const { id } = req.params;
-  const { charID} = req.body;
+  const { charID } = req.body;
   const charsHave = await charController.getCharsHaveById(id);
   let flag = false;
   for (let index = 0; index < charsHave.length; index++) {
@@ -151,17 +152,17 @@ router.get('/:id/charOwnEdit', [authentication.checkLoginAdmin], async function 
 
 router.post('/:id/charOwnEdit', [authentication.checkLoginAdmin], async function (req, res, next) {
   const { id } = req.params;
-  const { charName, level} = req.body;
+  const { charName, level } = req.body;
   const char = await charController.getCharByName(charName);
   console.log("charName: ", charName);
   console.log("char: ", char);
   const newLevel = await levelController.getLevelUpdate(char._id, level);
-  if(newLevel){
+  if (newLevel) {
     await charOwnController.updateLevel(id, newLevel._id);
-
     const charOwn = await charOwnController.getCharOwnById(id);
     const charOwns = await charOwnController.getCharOwnsById(charOwn.userID);
-  res.render('charOwn', { charOwns: charOwns, UID: id });
+    const user = await userController.getUserById(charOwn.userID);
+    res.render('charOwn', { charOwns: charOwns, user: user });
   }
 });
 
@@ -192,8 +193,64 @@ router.post('/:id/charEdit', [authentication.checkLoginAdmin], async function (r
 // spellOwn
 router.get('/:id/spellOwn', [authentication.checkLoginAdmin], async function (req, res, next) {
   const { id } = req.params;
+  const user = await userController.getUserById(id);
   const spellOwns = await spellOwnController.getSpellOwnsByUId(id);
-  res.render('spellOwn', { spellOwns: spellOwns });
+  res.render('spellOwn', { spellOwns: spellOwns , UID: id, user: user });
+});
+
+// spellOwn delete
+router.post('/:id/spellOwnDelete/:UID', [authentication.checkLoginAdmin], async function (req, res, next) {
+  const { id, UID } = req.params;
+  await spellOwnController.deleteSpellOwnBySpellID(id);
+  const spellOwns = await spellOwnController.getSpellOwnsByUId(UID);
+  res.render('spellOwn', { spellOwns: spellOwns, UID: UID });
+});
+
+// spellOwn add
+router.get('/:id/addSpellOwn', [authentication.checkLoginAdmin], async function (req, res, next) {
+  const { id } = req.params;
+  const spells = await spellController.getSpells();
+  res.render('add_spellOwn', { spells: spells, UID: id });
+});
+
+router.post('/:uid/addSpellOwn', [authentication.checkLoginAdmin], async function (req, res, next) {
+  const { uid } = req.params;
+  const { spellID } = req.body;
+  const spellOwnsHave = await spellOwnController.getSpellOwnsHaveByUID(uid);
+  let flag = false;
+  for (let index = 0; index < spellOwnsHave.length; index++) {
+    if (spellOwnsHave[index].spellID == spellID) {
+      flag = true;
+    }
+  }
+  console.log("flag: " + flag);
+  if (flag == false) {
+    await spellOwnController.addNewSpellOwnByUIDAndSpellID(uid, spellID);
+    const spellOwns = await spellOwnController.getSpellOwnsByUId(uid);
+    res.render('spellOwn', { spellOwns: spellOwns, UID: uid });
+  }
+});
+
+// spellOwn Edit
+router.get('/:spellOwnID/spellOwnEdit', [authentication.checkLoginAdmin], async function (req, res, next) {
+  const { spellOwnID } = req.params;
+  const spellOwn = await spellOwnController.getSpellOwnBySpellOwnID(spellOwnID);
+  res.render('detail_spellOwn', { spellOwn: spellOwn });
+});
+
+router.post('/:spellOwnId/spellOwnEdit', [authentication.checkLoginAdmin], async function (req, res, next) {
+  const { spellOwnId } = req.params;
+  const { spellName, amount } = req.body;
+  const spell = await spellController.getSpellByName(spellName);
+  if(amount < 0 || amount == null || amount.trim() == "" || amount > spell.total ){
+
+  } else {
+    await spellOwnController.updateSpellOwnBySpellOwnId(spellOwnId, amount);
+    const spellOwn = await spellOwnController.getSpellOwnBySpellOwnID(spellOwnId);
+    const user = await userController.getUserById(spellOwn.userID._id);
+    const spellOwns = await spellOwnController.getSpellOwnsByUId(spellOwn.userID._id);
+   res.render('spellOwn', { spellOwns: spellOwns , UID: user._id, user: user });
+  }
 });
 
 // Spell List
