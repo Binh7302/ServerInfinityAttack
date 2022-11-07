@@ -16,7 +16,7 @@
         <link href="/css/bootstrap.css" rel="stylesheet">
         <!--external css-->
         <link href="/stylesheets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-
+        <link rel="icon" href="/images/logO.png">
         <!-- Custom styles for this template -->
         <link href="/css/style.css" rel="stylesheet">
         <link href="/css/style-responsive.css" rel="stylesheet">
@@ -46,12 +46,12 @@
             <ul class="sidebar-menu" id="nav-accordion">
 
                 <p class="centered"><a href="profile.html"><img src="/images/ui-sam.png" class="img-circle"
-                            width="60"></a></p>
+                            width="200"></a></p>
                 <h5 class="centered">Admin </h5>
                 <li class="active" class="sub-menu">
                     <a class="active" href="/admin/home-admin">
                         <i class="fa fa-desktop"></i>
-                        <span>Danh sách khách hàng</span>
+                        <span>Danh sách người chơi</span>
                     </a>
                 </li>
                 <li class="active" class="sub-menu">
@@ -82,13 +82,13 @@
       MAIN CONTENT
       *********************************************************************************************************************************************************** -->
     <!--main content start-->
-    <div style="position: absolute; top: 120px; left: 230px;" class="content" >
+    <div style="position: absolute; top: 120px; left: 230px;" class="content">
         <div style="width: 1000px" class="container">
             <div class="table-wrapper">
-                <div class="table-title" >
-                    <div class="row" >
+                <div class="table-title">
+                    <div class="row">
                         <div class="col-sm-8" style="display: inline-block;">
-                            <h2>Danh sách <b>Khách Hàng</b></h2>
+                            <h2>Danh sách <b>Người chơi</b></h2>
                         </div>
                     </div>
                 </div>
@@ -97,7 +97,7 @@
                         <tr>
                             <th style="width: 40px;">STT</th>
                             <th style="width: 200px;">Tài khoản</th>
-                            <th style="width: 200px;">Tên Khách hàng</th>
+                            <th style="width: 200px;">Tên người chơi</th>
                             <th style="width: 80px;">Gem</th>
                             <th style="width: 80px;">Gold</th>
                             {{!-- <th>Trạng thái</th> --}}
@@ -114,7 +114,8 @@
                             <td>{{this.gold}}</td>
                             <td>
                                 <form action="/admin/{{this._id}}/charOwn" method="get" role="form">
-                                    <button class="btn btn-theme btn-block" type="submit"></i>Danh sách nhân vật</button>
+                                    <button class="btn btn-theme btn-block" type="submit"></i>Danh sách nhân
+                                        vật</button>
                                 </form>
                             </td>
                             <td>

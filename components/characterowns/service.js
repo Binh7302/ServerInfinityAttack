@@ -8,7 +8,7 @@ const userModel = require('../users/model');
 
 
 exports.getCharacterOwnss = async (userID) => {
-  const charOwn = await characterownModel.find({userID : userID});
+  const charOwn = await characterownModel.find({ userID: userID });
   return charOwn;
 }
 
@@ -22,11 +22,11 @@ exports.getCharacterOwns = async () => {
 exports.addFirstCharacter = async (username) => {
   const user = await userModel.findOne({ username: username });
   console.log("usser by username: ", user);
-  const firstChar = await characterModel.findOne({ name: "Fire Knight"});
+  const firstChar = await characterModel.findOne({ name: "Fire Knight" });
   console.log("first char: ", firstChar);
   const level = await levelModel.findOne({ level: 1, characterID: firstChar._id });
   console.log("level: ", level);
-  const charOwn = new characterownModel({ userID: user._id, characterID: firstChar._id, levelID: level._id, status: 1});
+  const charOwn = new characterownModel({ userID: user._id, characterID: firstChar._id, levelID: level._id, status: 1 });
   console.log("charOwn: ", charOwn);
   return await charOwn.save();
 }
@@ -37,11 +37,11 @@ exports.getCharacterOwnByID = async (id) => {
 }
 
 exports.update = async (_id, characterOwn) => {
-  return await characterownModel.findByIdAndUpdate(_id,characterOwn);
+  return await characterownModel.findByIdAndUpdate(_id, characterOwn);
 }
-exports.addNewCharacter = async (userID,characterID,status) => {
+exports.addNewCharacter = async (userID, characterID, status) => {
   const level = await levelModel.findOne({ level: 1, characterID: characterID });
-  const charOwn = new characterownModel({ userID: userID, characterID: characterID, levelID: level._id, status: status});
+  const charOwn = new characterownModel({ userID: userID, characterID: characterID, levelID: level._id, status: status });
   console.log(charOwn);
   return await charOwn.save();
 }
@@ -51,26 +51,31 @@ exports.addNewCharacter = async (userID,characterID,status) => {
 //   return await characterownModel.updateOne({_id : _id,status : 1});
 // }
 
-exports.deleteCharOwnById = async(id) => {
+exports.deleteCharOwnById = async (id) => {
   await characterownModel.findByIdAndDelete(id);
 }
 
-exports.getCharOwnsById = async(id) => {
-  const charOwns = await characterownModel.find({userID: id}).populate('userID characterID levelID');
+exports.getCharOwnsById = async (id) => {
+  const charOwns = await characterownModel.find({ userID: id }).populate('userID characterID levelID');
   return charOwns;
 }
 
-exports.getCharOwnById = async(id) => {
-  const charOwn = await characterownModel.findOne({_id: id}).populate('userID characterID levelID');
+exports.getCharOwnById = async (id) => {
+  const charOwn = await characterownModel.findOne({ _id: id }).populate('userID characterID levelID');
   return charOwn;
 }
 
-exports.updateLevel = async(id, levelID) => {
-   await characterownModel.findByIdAndUpdate(id, {levelID: levelID}).populate('userID characterID');
+exports.updateLevel = async (id, levelID) => {
+  await characterownModel.findByIdAndUpdate(id, { levelID: levelID }).populate('userID characterID');
 }
 
-exports.setUsingForFirstChar = async(UID) => {
-  const firstChar = await characterModel.findOne({ name: "Fire Knight"});
-  const charOwn = await charOwnModel.findOne({userID: UID, characterID: firstChar._id});
-  await charOwnModel.findByIdAndUpdate(charOwn._id,{status: 1});
+exports.setUsingForFirstChar = async (UID) => {
+  const firstChar = await characterModel.findOne({ name: "Fire Knight" });
+  const charOwn = await charOwnModel.findOne({ userID: UID, characterID: firstChar._id });
+  await charOwnModel.findByIdAndUpdate(charOwn._id, { status: 1 });
 }
+// exports.getCharOwnSelectedByUserID = async (userID) => {
+//   const characterOwns = await charOwnModel.findO({ userID: userID });
+//   const characterOwnSelected = characterOwns.filter((characterOwn) => characterOwn.status == 1);
+
+// }

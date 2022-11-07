@@ -15,6 +15,7 @@ var ownerRouter = require('./routes/owner');
 var inventoryClient = require('./routes/inventoryClient');
 var apiRouter = require('./routes/api');
 var adminRouter = require('./routes/admin');
+var friendsRouter = require('./routes/friends');
 
 var app = express();
 
@@ -45,7 +46,7 @@ app.use('/owner', ownerRouter);
 app.use('/inventoryClient', inventoryClient);
 app.use('/api', apiRouter);
 app.use('/admin', adminRouter);
-
+app.use('/friends', friendsRouter);
 mongoose.connect('mongodb+srv://binh7302:binh7302@cluster0.5njb2ki.mongodb.net/InfinityAttack?retryWrites=true&w=majority', {  
   useNewUrlParser: true,
   useUnifiedTopology: true

@@ -38,6 +38,13 @@ router.post('/getUserById', async function (req, res, next) {
   return res.json(user);
 });
 
+// http://localhost:3000/api/getUsers
+router.post('/getUsers', async function (req, res, next) {
+  const user = await userController.getUsers();
+  console.log("user api: ", user);
+  return res.json(user);
+});
+
 
 // http://localhost:3000/api/get-character-own
 router.post('/get-character-own', async function (req, res, next) {
@@ -130,9 +137,8 @@ router.post('/addNewSpellOwn',async function(req,res,next){
 })
 // http://localhost:3000/api/getUsingCharNameById
 router.post('/getUsingCharNameById', async function (req, res, next) {
-  const { id } = req.body;
-  console.log("id: ", id);
-  const name = await characterController.getUsingCharNameById(id);
+  const { userID } = req.body;
+  const name = await characterController.getUsingCharNameById(userID);
   console.log("name: ", name);
   return res.json(name);
 });
@@ -142,4 +148,5 @@ router.get('/getTop5Users', async function (req, res, next) {
   console.log("Route api top5users: " + top5Users);
   return res.json(top5Users);
 });
+
 module.exports = router;

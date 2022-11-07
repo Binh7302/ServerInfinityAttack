@@ -7,10 +7,13 @@ exports.getCharacters = async () => {
 }
 
 exports.getUsingCharNameById = async (id) => {
+    console.log("userIDddddddddddddddddd" + id);
     const charOwn = await characterOwnModel.findOne({ userID: id, status: 1 });
-    console.log(charOwn);
-    const char = await characterModel.findOne({ _id: charOwn.characterID });
-    return char.name;
+    if(charOwn != null){
+        const char = await characterModel.findOne({ _id: charOwn.characterID });
+        return char.name;
+    }
+    return charOwn;
 }
 
 exports.getCharById = async (id) => {
