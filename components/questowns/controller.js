@@ -16,3 +16,7 @@ exports.getQuestOwnsByID = async (id) => {
     return questOwns;
 }
 
+exports.getQuestOwnByUserIDAndQuestID = async (userID, questID) => {
+    const data = await questownService.getQuestOwnByUserIDAndQuestID(userID, questID); 
+    return data;
+}

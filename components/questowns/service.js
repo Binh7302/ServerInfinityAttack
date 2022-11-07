@@ -23,4 +23,9 @@ exports.update = async (_id, questOwn) => {
   return await questownModel.findByIdAndUpdate(_id,questOwn);
 }
 
+exports.getQuestOwnByUserIDAndQuestID = async (userID, questID) => {
+  const data = await questownModel.findOne({userID : userID, questID : questID});
+  return data;
+}
+
 
