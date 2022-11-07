@@ -57,6 +57,8 @@ mongoose.connect('mongodb+srv://binh7302:binh7302@cluster0.5njb2ki.mongodb.net/I
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
+  console.log("ok");
+
   next(createError(404));
 });
 // error handler
