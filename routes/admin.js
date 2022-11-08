@@ -319,7 +319,6 @@ router.post('/:id/levelEdit', [authentication.checkLoginAdmin], async function (
   const levels = await levelController.getLevelsByCharID(level.characterID);
   const char = await charController.getCharById(level.characterI);
   res.render('level', { levels: levels, char: char });
-
 });
 
 module.exports = router;

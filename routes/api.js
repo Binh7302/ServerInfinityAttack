@@ -9,6 +9,14 @@ const spellOwnController = require('../components/spellowns/controller');
 const questOwnController = require('../components/questowns/controller');
 const giftOwnController = require('../components/giftowns/controller');
 const achievementOwnController = require('../components/achievementowns/controller');
+const levelController = require('../components/levels/controller');
+const questController = require('../components/quests/controller');
+const giftController = require('../components/gifts/controller');
+const achievementController = require('../components/achievements/controller');
+const achievementLevelController = require('../components/achievementlevels/controller');
+
+
+
 // http://localhost:3000/api/login
 router.post('/login', async function (req, res, next) {
   const { username, password } = req.body;
@@ -113,12 +121,6 @@ router.post('/getcharacterown', async function (req, res, next) {
   const data = await characterOwnController.getCharacterOwnBy_Id(userID);
   return res.json(data);
 });
-// http://localhost:3000/api/get-Characters
-router.post('/getCharacters', async function (req, res, next) {
-  const data = await characterController.getCharacters();
-  console.log(data);
-  return res.json(data);
-});
 // http://localhost:3000/api/addNewCharacter
 router.post('/addNewCharacter', async function (req, res, next) {
   const {userID,characterID,status} = req.body;
@@ -171,11 +173,347 @@ router.post('/getUsingCharNameById', async function (req, res, next) {
   console.log("name: ", name);
   return res.json(name);
 });
-// http://localhost:3000/api/getTop5Users
-router.get('/getTop5Users', async function (req, res, next) {
-  const top5Users = await userController.getTop5Users();
-  console.log("Route api top5users: " + top5Users);
-  return res.json(top5Users);
+
+
+
+// http://localhost:3000/api/requestAnUser
+router.post('/requestAnUser', async function (req, res, next) {
+  const { userReq, userRes } = req.body;
+  var data = await friendsController.getRelationship(userReq, userRes);
+  if (data == null) {
+      console.log("Đã gửi yêu cầu");
+      data = await friendsController.addRelationship(userReq, userRes, 0);
+  }
+  else if (data.status == 1) {
+      console.log("Đã kết bạn rồi")
+  }
+  else if (data.status == 0) {
+      data = {};
+      console.log("Đã gửi yêu cầu trước đó rồi")
+  }
+  return res.json(data);
 });
+
+// http://localhost:3000/api/addTrueFriend
+router.post('/addTrueFriend', async function (req, res, next) {
+  const { id } = req.body;
+  const data = await friendsController.addTrueFriend(id, 1);
+  return res.json(data);
+});
+// http://localhost:3000/api/findRespone
+router.post('/findRespone', async function (req, res, next) {
+  const { userRes } = req.body;
+  const data = await friendsController.findRespone(userRes);
+  return res.json(data);
+});
+// http://localhost:3000/api/getAllFriends
+router.post('/getAllFriends', async function (req, res, next) {
+  const { userID } = req.body;
+  const data = await friendsController.getAllFriends(userID);
+  return res.json(data);
+});
+// http://localhost:3000/api/deleteAnFriend
+router.post('/deleteAnFriend', async function (req, res, next) {
+  const { id } = req.body;
+  const data = await friendsController.deleteAnFriend(id);
+  return res.json(data);
+});
+// http://localhost:3000/api/checkExistingFriend
+router.post('/checkExistingFriend', async function (req, res, next) {
+  const { userID } = req.body;
+  const user = await friendsController.checkExistingFriend(userID);
+  return res.json(user);
+});
+
+
+// http://localhost:3000/api/post-character-own
+router.post('/post-character-own', async function (req, res, next) {
+  const { userID } = req.body;
+  console.log(userID);
+  const data = await characterOwnController.getCharacterOwnById(userID);
+  return res.json(data);
+});
+
+// http://localhost:3000/api/update-character-own
+router.post('/update-character-own', async function (req, res, next) {
+  const { characterID, level, characterOwnID } = req.body;
+  const levelData = await levelController.getLevelUpdate(characterID, level);
+  let data = await characterOwnController.getCharacterOwn(characterOwnID);
+  data.levelID = levelData._id
+  await characterOwnController.update(characterOwnID, data);
+  return res.json(data);
+});
+
+// http://localhost:3000/api/update-status-character-own
+router.post('/update-status-character-own', async function (req, res, next) {
+  //cách khác
+  //findOne với điều kiện userID, status = 1, đc data, thay đổi data.status = 0 ( cách tìm thông thường khi 2 khóa chính là userID và characterID)
+  const { characterOwnIDOld, characterOwnIDNew } = req.body;
+  // character old là character đang có status = 1 
+  const dataOld = await characterOwnController.getCharacterOwn(characterOwnIDOld);
+  dataOld.status = 0;
+  await characterOwnController.update(characterOwnIDOld, dataOld);
+  // character new là character đang có status = 0 
+  let dataNew = await characterOwnController.getCharacterOwn(characterOwnIDNew);
+  dataNew.status = 1;
+  const data = await characterOwnController.update(characterOwnIDNew, dataNew);
+  return res.json(data);
+});
+// http://localhost:3000/api/get-spells
+router.get('/get-spells', async function (req, res, next) {
+  const data = await spellController.getSpells();
+  console.log(data);
+  return res.json(data);
+});
+
+// http://localhost:3000/api/post-spells-own
+router.post('/post-spells-own', async function (req, res, next) {
+  const { userID } = req.body;
+  const data = await spellOwnController.getSpellOwnByUserId(userID);
+  // console.log(data);
+  return res.json(data);
+});
+
+// http://localhost:3000/api/get-character-own
+router.get('/get-character-own', async function (req, res, next) {
+  const data = await characterOwnController.getCharacterOwnById("6345a02f1d8f5da83dc48826");
+  console.log(data);
+  return res.json(data);
+});
+
+// http://localhost:3000/api/get-spells-own
+router.get('/get-spells-own', async function (req, res, next) {
+  const data = await spellOwnController.getSpellOwnByUserId("6345a02f1d8f5da83dc48826");
+  // console.log(data);
+  return res.json(data);
+});
+
+
+
+
+// http://localhost:3000/api/get-quests
+router.get('/get-quests', async function (req, res, next) {
+  const data = await questController.getQuests();
+  console.log(data);
+  return res.json(data);
+});
+
+// http://localhost:3000/api/get-quests-own
+router.get('/get-quests-own', async function (req, res, next) {
+  const data = await questOwnController.getQuestOwnsByUserID("6345a02f1d8f5da83dc48826");
+  // console.log(data);
+  return res.json(data);
+});
+
+// http://localhost:3000/api/get-gifts
+router.get('/get-gifts', async function (req, res, next) {
+  const data = await giftController.getGifts();
+  console.log(data);
+  return res.json(data);
+});
+
+// http://localhost:3000/api/get-gifts-own
+router.get('/get-gifts-own', async function (req, res, next) {
+  const data = await giftOwnController.getQuestGiftsByUserID("6345a02f1d8f5da83dc48826");
+  // console.log(data);
+  return res.json(data);
+});
+
+
+
+// http://localhost:3000/api/post-quests-own
+router.post('/post-quests-own', async function (req, res, next) {
+  const { userID } = req.body;
+  const data = await questOwnController.getQuestOwnsByUserID(userID);
+  // console.log(data);
+  return res.json(data);
+});
+
+// http://localhost:3000/api/update-status-quest-own
+router.post('/update-status-quest-own', async function (req, res, next) {
+  const { questOwnID } = req.body;
+  // quest own đang có status = 0 
+  const quest = await questOwnController.getQuestOwnsByID(questOwnID);
+  quest.status = 1;
+  const data = await questOwnController.update(questOwnID, quest);
+  console.log(data);
+  return res.json(data);
+});
+
+// http://localhost:3000/api/update-all-challenge-achieved-quest-by-name
+router.post('/update-all-challenge-achieved-quest-by-name', async function (req, res, next) {
+  const { login, single3time, multi1time, kill50enemy, kill5boss, use3spell,
+    challengeAchievedLogIn, challengeAchievedSingle3Time, challengeAchievedMulti1Time, challengeAchievedKill50Enemy,
+    challengeAchievedKill5Boss, challengeAchievedUse3Spell, userID } = req.body;
+
+  //update challenge achieved login
+  const questLogIn = await questController.getQuestByName(login);
+  const questLogInID = questLogIn._id;
+  let dataLogIn = await questOwnController.getQuestOwnByUserIDAndQuestID(userID, questLogInID);
+  dataLogIn.challengeAchieved = challengeAchievedLogIn;
+  await questOwnController.update(dataLogIn._id, dataLogIn);
+
+  //update challenge achieved single3time
+  const questSingle3Time = await questController.getQuestByName(single3time);
+  const questSingle3TimeID = questSingle3Time._id;
+  let dataSingle3Time = await questOwnController.getQuestOwnByUserIDAndQuestID(userID, questSingle3TimeID);
+  dataSingle3Time.challengeAchieved = challengeAchievedSingle3Time;
+  await questOwnController.update(dataSingle3Time._id, dataSingle3Time);
+
+  //update challenge achieved multi1time
+  const questMulti1Time = await questController.getQuestByName(multi1time);
+  const questMulti1TimeID = questMulti1Time._id;
+  let dataMulti1Time = await questOwnController.getQuestOwnByUserIDAndQuestID(userID, questMulti1TimeID);
+  dataMulti1Time.challengeAchieved = challengeAchievedMulti1Time;
+  await questOwnController.update(dataMulti1Time._id, dataMulti1Time);
+
+  //update challenge achieved kill50enemy
+  const questKill50Enemy = await questController.getQuestByName(kill50enemy);
+  const questKill50EnemyID = questKill50Enemy._id;
+  let dataKill50Enemy = await questOwnController.getQuestOwnByUserIDAndQuestID(userID, questKill50EnemyID);
+  dataKill50Enemy.challengeAchieved = challengeAchievedKill50Enemy;
+  await questOwnController.update(dataKill50Enemy._id, dataKill50Enemy);
+
+  //update challenge achieved kill5boss
+  const questKill5Boss = await questController.getQuestByName(kill5boss);
+  const questKill5BossID = questKill5Boss._id;
+  let dataKill5Boss = await questOwnController.getQuestOwnByUserIDAndQuestID(userID, questKill5BossID);
+  dataKill5Boss.challengeAchieved = challengeAchievedKill5Boss;
+  await questOwnController.update(dataKill5Boss._id, dataKill5Boss);
+
+  //update challenge achieved use3spell
+  const questUse3Spell= await questController.getQuestByName(use3spell);
+  const questUse3SpellID = questUse3Spell._id;
+  let dataUse3Spell = await questOwnController.getQuestOwnByUserIDAndQuestID(userID, questUse3SpellID);
+  dataUse3Spell.challengeAchieved = challengeAchievedUse3Spell;
+  await questOwnController.update(dataUse3Spell._id, dataUse3Spell);
+
+  return res.json(dataLogIn, dataSingle3Time, dataMulti1Time, dataKill50Enemy, dataKill5Boss, dataUse3Spell);
+});
+
+// http://localhost:3000/api/post-gifts-own
+router.post('/post-gifts-own', async function (req, res, next) {
+  const { userID } = req.body;
+  const data = await giftOwnController.getQuestGiftsByUserID(userID);
+  // console.log(data);
+  return res.json(data);
+});
+
+// http://localhost:3000/api/update-status-gift-own
+router.post('/update-status-gift-own', async function (req, res, next) {
+  const { giftOwnID } = req.body;
+  // gift own đang có status = 0 
+  const gift = await giftOwnController.getGiftOwnsByID(giftOwnID);
+  gift.status = 1;
+  const data = await giftOwnController.update(giftOwnID, gift);
+  console.log(data);
+  return res.json(data);
+});
+
+
+
+// http://localhost:3000/api/get-achievements
+router.get('/get-achievements', async function (req, res, next) {
+  const data = await achievementController.getAchievements();
+  console.log(data);
+  return res.json(data);
+});
+
+// http://localhost:3000/api/get-achievement-levels
+router.get('/get-achievement-levels', async function (req, res, next) {
+  const data = await achievementLevelController.getAchievementLevel();
+  console.log(data);
+  return res.json(data);
+});
+
+// http://localhost:3000/api/get-achievements-own
+router.get('/get-achievements-own', async function (req, res, next) {
+  const data = await achievementOwnController.getAchievementOwnByUserId("6345a02f1d8f5da83dc48826");
+  // console.log(data);
+  return res.json(data);
+});
+
+// http://localhost:3000/api/post-achievements-own
+router.post('/post-achievements-own', async function (req, res, next) {
+  const { userID } = req.body;
+  const data = await achievementOwnController.getAchievementOwnByUserId(userID);
+  // console.log(data);
+  return res.json(data);
+});
+
+// http://localhost:3000/api/update-level-achievement-own
+router.post('/update-level-achievement-own', async function (req, res, next) {
+  const { achievementID, level, achievementOwnID } = req.body;
+  const levelData = await achievementLevelController.getAchievementLevelUpdate(achievementID, level);
+  let data = await achievementOwnController.getAchievementOwnByID(achievementOwnID);
+  data.achievementLevelID = levelData._id
+  await achievementOwnController.update(achievementOwnID, data);
+  return res.json(data);
+});
+
+
+// http://localhost:3000/api/update-challenge-achieved-achievement-by-name
+router.post('/update-challenge-achieved-by-name', async function (req, res, next) {
+  const { name, challengeAchieved, userID } = req.body;
+  const achievement = await achievementController.getAchievementByName(name);
+  const achievementID = achievement._id;
+  let data = await achievementOwnController.getAchievementOwnByUserIDAndAchievementID(userID, achievementID);
+  data.challengeAchieved = challengeAchieved;
+  await achievementOwnController.update(data._id, data);
+  return res.json(data);
+});
+
+// http://localhost:3000/api/update-all-challenge-achieved-achievement-by-name
+router.post('/update-all-challenge-achieved-achievement-by-name', async function (req, res, next) {
+  const { characterown, killenemy, killboss, singleplay, multiplay, addfriend,
+    challengeAchievedCharacterOwn, challengeAchievedKillEnemy, challengeAchievedKillBoss, challengeAchievedSinglePlay, challengeAchievedMultiPlay,
+    challengeAchievedAddFriend, userID } = req.body;
+
+  //update challenge achieved characterown
+  const achievementCharacterOwn = await achievementController.getAchievementByName(characterown);
+  const achievementCharacterOwnID = achievementCharacterOwn._id;
+  let dataCharacterOwn = await achievementOwnController.getAchievementOwnByUserIDAndAchievementID(userID, achievementCharacterOwnID);
+  dataCharacterOwn.challengeAchieved = challengeAchievedCharacterOwn;
+  await achievementOwnController.update(dataCharacterOwn._id, dataCharacterOwn);
+
+  //update challenge achieved killenemy
+  const achievementKillEnemy = await achievementController.getAchievementByName(killenemy);
+  const achievementKillEnemyID = achievementKillEnemy._id;
+  let dataKillEnemy = await achievementOwnController.getAchievementOwnByUserIDAndAchievementID(userID, achievementKillEnemyID);
+  dataKillEnemy.challengeAchieved = challengeAchievedKillEnemy;
+  await achievementOwnController.update(dataKillEnemy._id, dataKillEnemy);
+
+  //update challenge achieved killboss
+  const achievementKillBoss = await achievementController.getAchievementByName(killboss);
+  const achievementKillBossID = achievementKillBoss._id;
+  let dataKillBoss = await achievementOwnController.getAchievementOwnByUserIDAndAchievementID(userID, achievementKillBossID);
+  dataKillBoss.challengeAchieved = challengeAchievedKillBoss;
+  await achievementOwnController.update(dataKillBoss._id, dataKillBoss);
+
+  //update challenge achieved singleplay
+  const achievementSinglePlay = await achievementController.getAchievementByName(singleplay);
+  const achievementSinglePlayID = achievementSinglePlay._id;
+  let dataSinglePlay = await achievementOwnController.getAchievementOwnByUserIDAndAchievementID(userID, achievementSinglePlayID);
+  dataSinglePlay.challengeAchieved = challengeAchievedSinglePlay;
+  await achievementOwnController.update(dataSinglePlay._id, dataSinglePlay);
+
+  //update challenge achieved multiplay
+  const achievementMultiPlay = await achievementController.getAchievementByName(multiplay);
+  const achievementMultiPlayID = achievementMultiPlay._id;
+  let dataMultiPlay = await achievementOwnController.getAchievementOwnByUserIDAndAchievementID(userID, achievementMultiPlayID);
+  dataMultiPlay.challengeAchieved = challengeAchievedMultiPlay;
+  await achievementOwnController.update(dataMultiPlay._id, dataMultiPlay);
+
+  //update challenge achieved addfriend
+  const achievementAddFriend = await achievementController.getAchievementByName(addfriend);
+  const achievementAddFriendID = achievementAddFriend._id;
+  let dataAddFriend = await achievementOwnController.getAchievementOwnByUserIDAndAchievementID(userID, achievementAddFriendID);
+  dataAddFriend.challengeAchieved = challengeAchievedAddFriend;
+  await achievementOwnController.update(dataAddFriend._id, dataAddFriend);
+
+  return res.json(dataCharacterOwn, dataKillEnemy, dataKillBoss, dataSinglePlay, dataMultiPlay, dataAddFriend);
+});
+
+
 
 module.exports = router;
