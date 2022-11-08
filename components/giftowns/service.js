@@ -1,6 +1,7 @@
 // tầng giao tiếp với database
 const giftownModel = require('./model');
-
+const giftModel = require('../gifts/model');
+const userModel = require('../users/model');
 
 //Lấy thông tin danh sách gift của người chơi
 exports.getQuestOwns = async () => {
@@ -23,4 +24,11 @@ exports.update = async (_id, giftown) => {
   return await giftownModel.findByIdAndUpdate(_id,giftown);
 }
 
+exports.addGiftQuestByName = async (username, name) => {
+  const user = await userModel.findOne({ username: username });
+  const gift = await giftModel.findOne({ name: name});
+  const giftOwn = new giftownModel({ userID: user._id, giftID: gift._id, status: 0});
+  console.log("giftOwn: ", giftOwn);
+  return await giftOwn.save();
+}
 

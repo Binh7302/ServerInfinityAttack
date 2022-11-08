@@ -1,5 +1,5 @@
 const questModel = require('./model');
-
+const userModel = require('../users/model');
 exports.getQuests = async () => {
     const quest = await questModel.find();
     return quest;

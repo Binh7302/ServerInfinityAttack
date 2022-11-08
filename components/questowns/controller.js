@@ -16,3 +16,12 @@ exports.getQuestOwnsByID = async (id) => {
     return questOwns;
 }
 
+exports.getQuestOwnByUserIDAndQuestID = async (userID, questID) => {
+    const data = await questownService.getQuestOwnByUserIDAndQuestID(userID, questID); 
+    return data;
+}
+
+// add quests cho người chơi đăng kí tài khoản
+exports.addQuestByName = async (username, name) => {
+    await questownService.addQuestByName(username, name);
+}
