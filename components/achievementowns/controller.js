@@ -32,3 +32,8 @@ exports.getAchievementOwnByUserIDAndAchievementID = async (userID, achievementID
 exports.update = async (id, achievementown) => {
     return await achievementownService.update(id, achievementown);
 }
+
+// add quests cho người chơi đăng kí tài khoản
+exports.addAchievementByName = async (username, name) => {
+    await achievementownService.addAchievementByName(username, name);
+}

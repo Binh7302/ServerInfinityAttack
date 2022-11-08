@@ -16,3 +16,7 @@ exports.getGiftOwnsByID = async (id) => {
     return giftOwns;
 }
 
+// add giftquests cho người chơi đăng kí tài khoản
+exports.addGiftQuestByName = async (username, name) => {
+    await giftownService.addGiftQuestByName(username, name);
+}
