@@ -29,14 +29,14 @@ router.post('/login', async function (req, res, next) {
 
 // http://localhost:3000/api/register
 router.post('/register', async function (req, res, next) {
-  const { username, password, confirm_password, name } = req.body;
+  const { username, password, name } = req.body;
   const login = "login", single3time = "single3time", multi1time = "multi1time",
    kill50enemy = "kill50enemy", kill5boss = "kill5boss", use3spell = "use3spell";
   const moc1 = "moc1", moc2 = "moc2", moc3 = "moc3", moc4 = "moc4";
   const characterown = "characterown", killenemy = "killenemy", killboss = "killboss",
    singleplay = "singleplay", multiplay = "multiplay", addfriend = "addfriend";
   // thực hiện kiểm tra đăng nhập
-  const result = await userController.register(username, password, confirm_password, name);
+  const result = await userController.register(username, password, name);
   console.log("result: ", result);
   if(result == "Đăng kí thành công"){
     //add first character
