@@ -1,6 +1,7 @@
 // tầng giao tiếp và xử lý data
 const achievementownService = require('./service');
 
+
 // Lấy chi tiết danh sách thành tựu 1 người chơi sỡ hữu
 exports.getAchievementOwnByUserId = async (id) => {
     let data = await achievementownService.getAchievementOwns();
@@ -37,3 +38,4 @@ exports.update = async (id, achievementown) => {
 exports.addAchievementByName = async (username, name) => {
     await achievementownService.addAchievementByName(username, name);
 }
+

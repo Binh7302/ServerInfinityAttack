@@ -5,12 +5,6 @@ const achievementModel = require('../achievements/model');
 const achievementLevelModel = require('../achievementlevels/model');
 const userModel = require('../users/model');
 
-//Lấy thông tin danh sách thành tựu mà người chơi sở hữu
-exports.getAchievementOwnByUserID = async (userID) => {
-  const data = await achievementownModel.find({userID : userID});
-  return data;
-}
-
 //Lấy thông tin danh sách tất cả thành tựu
 exports.getAchievementOwns = async () => {
   const data = await achievementownModel.find().populate('userID achievementID achievementLevelID');

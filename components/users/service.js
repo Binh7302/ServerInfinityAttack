@@ -64,3 +64,7 @@ exports.getTop5Users = async () => {
 exports.getUsers = async() => {
     return users = await userModel.find();
 }
+
+exports.update = async (_id, user) => {
+    return await userModel.findByIdAndUpdate(_id,user);
+  }

@@ -14,7 +14,7 @@ const questController = require('../components/quests/controller');
 const giftController = require('../components/gifts/controller');
 const achievementController = require('../components/achievements/controller');
 const achievementLevelController = require('../components/achievementlevels/controller');
-
+const friendsController = require('../components/friends/controller');
 
 
 // http://localhost:3000/api/login
@@ -229,7 +229,6 @@ router.post('/checkExistingFriend', async function (req, res, next) {
 // http://localhost:3000/api/post-character-own
 router.post('/post-character-own', async function (req, res, next) {
   const { userID } = req.body;
-  console.log(userID);
   const data = await characterOwnController.getCharacterOwnById(userID);
   return res.json(data);
 });
@@ -436,6 +435,7 @@ router.get('/get-achievements-own', async function (req, res, next) {
 // http://localhost:3000/api/post-achievements-own
 router.post('/post-achievements-own', async function (req, res, next) {
   const { userID } = req.body;
+  console.log("uID: " + userID);
   const data = await achievementOwnController.getAchievementOwnByUserId(userID);
   // console.log(data);
   return res.json(data);

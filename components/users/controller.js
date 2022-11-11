@@ -84,3 +84,8 @@ exports.getUsers = async () => {
     });
     return data;
 }
+
+
+exports.update = async (id, user) => {
+    return await userService.update(id, user);
+}
