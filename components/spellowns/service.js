@@ -67,4 +67,3 @@ exports.updateSpellOwnBySpellOwnId = async (spellOwnId, amount) => {
   await spellownModel.findByIdAndUpdate(spellOwnId, {amount: amount});
 }
 
-

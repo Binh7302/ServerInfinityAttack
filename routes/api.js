@@ -514,6 +514,12 @@ router.post('/update-all-challenge-achieved-achievement-by-name', async function
   return res.json(dataCharacterOwn, dataKillEnemy, dataKillBoss, dataSinglePlay, dataMultiPlay, dataAddFriend);
 });
 
-
+// http://localhost:3000/api/getLevelByCharNameAndUid
+router.post('/getLevelByCharNameAndUid', async function (req, res, next) {
+  const { charName, uid } = req.body;
+  const level = await levelController.getLevelByCharNameAndUid(charName, uid);
+  console.log("level ngoai api: " + level);
+  return res.json(level);
+});
 
 module.exports = router;

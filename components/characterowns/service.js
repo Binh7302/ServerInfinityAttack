@@ -79,3 +79,5 @@ exports.setUsingForFirstChar = async (UID) => {
 //   const characterOwnSelected = characterOwns.filter((characterOwn) => characterOwn.status == 1);
 
 // }
+
+

@@ -79,3 +79,4 @@ exports.updateLevel = async(id, levelID) => {
  exports.setUsingForFirstChar = async (UID) => {
     await characterownService.setUsingForFirstChar(UID);
  }
+

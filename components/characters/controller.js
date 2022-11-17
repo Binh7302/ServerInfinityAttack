@@ -18,6 +18,7 @@ exports.getCharacters = async () => {
 
 // lấy tên của nhân vật đang sử dụng bằng USERID
 exports.getUsingCharNameById = async (id) => {
+    console.log("uid: " + id);
     const name = await characterService.getUsingCharNameById(id);
     return name;
 }

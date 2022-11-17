@@ -20,3 +20,7 @@ exports.getLevelById = async (id) => {
 exports.updateLevel = async (id, damage, hp, cost) => {
     await levelService.updateLevel(id, damage, hp, cost);
 }
+exports.getLevelByCharNameAndUid = async(charName, uid) => {
+    const level = await levelService.getLevelByCharNameAndUid(charName,uid);
+    return level;
+} 
