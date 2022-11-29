@@ -268,7 +268,7 @@ router.get('/get-spells', async function (req, res, next) {
 // http://localhost:3000/api/post-spells-own
 router.post('/post-spells-own', async function (req, res, next) {
   const { userID } = req.body;
-  const data = await spellOwnController.getSpellOwnByUserId(userID);
+  const data = await spellOwnController.getSpellOwnsByUId(userID);
   // console.log(data);
   return res.json(data);
 });
