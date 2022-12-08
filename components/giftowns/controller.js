@@ -20,3 +20,7 @@ exports.getGiftOwnsByID = async (id) => {
 exports.addGiftQuestByName = async (username, name) => {
     await giftownService.addGiftQuestByName(username, name);
 }
+
+exports.resetDailyGift = async () => {
+    await giftownService.updateDailyGift();
+}

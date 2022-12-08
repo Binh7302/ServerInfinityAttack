@@ -36,3 +36,16 @@ exports.addQuestByName = async (username, name) => {
   console.log("questOwn: ", questOwn);
   return await questOwn.save();
 }
+
+exports.updateDailyQuest = async () => {
+  let questOwnList = await questownModel.find();
+  // console.log("-----------------Quest Own List Before: "+questOwnList);
+  for(let i = 0; i < questOwnList.length; i++) {
+    var id = questOwnList[i]._id;
+    questOwnList[i].challengeAchieved = 0;
+    questOwnList[i].status = 0;
+    await questownModel.findByIdAndUpdate(id, questOwnList[i]);
+  }
+  //console.log("-----------------Quest Own List After: "+questOwnList);
+  console.log("Reset Daily Quest Complete");
+}

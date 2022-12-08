@@ -25,3 +25,7 @@ exports.getQuestOwnByUserIDAndQuestID = async (userID, questID) => {
 exports.addQuestByName = async (username, name) => {
     await questownService.addQuestByName(username, name);
 }
+
+exports.resetDailyQuest = async () => {
+    await questownService.updateDailyQuest();
+}

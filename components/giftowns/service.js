@@ -32,3 +32,15 @@ exports.addGiftQuestByName = async (username, name) => {
   return await giftOwn.save();
 }
 
+exports.updateDailyGift = async () => {
+  let giftOwnList = await giftownModel.find();
+  //console.log("-----------------Gift Own List Before: "+giftOwnList);
+  for(let i = 0; i < giftOwnList.length; i++) {
+    var id = giftOwnList[i]._id;
+    giftOwnList[i].status = 0;
+    await giftownModel.findByIdAndUpdate(id, giftOwnList[i]);
+  }
+  //console.log("-----------------Gift Own List After: "+giftOwnList);
+  console.log("Reset Daily Gift Complete");
+}
+

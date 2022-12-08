@@ -1,5 +1,6 @@
 var express = require('express');
 var router = express.Router();
+var schedule = require('node-schedule');
 
 const userController = require('../components/users/controller');
 const characterController = require('../components/characters/controller');
@@ -16,7 +17,7 @@ const achievementController = require('../components/achievements/controller');
 const achievementLevelController = require('../components/achievementlevels/controller');
 const friendsController = require('../components/friends/controller');
 
-
+let day = 0;
 // http://localhost:3000/api/login
 router.post('/login', async function (req, res, next) {
   const { username, password } = req.body;
@@ -522,4 +523,22 @@ router.post('/getLevelByCharNameAndUid', async function (req, res, next) {
   return res.json(level);
 });
 
+// http://localhost:3000/api/resetDaily
+router.get('/resetDaily', async function (req, res, next) {
+  await questOwnController.resetDailyQuest();
+  await giftOwnController.resetDailyGift();
+  return ;
+});
+
+//Reset ở khoảng thời gian định kỳ (mỗi 23h59')
+schedule.scheduleJob('*/59 */23 * * *', () => {
+  ResetDaily();
+  day++;
+  console.log("Day " + day + " reset daily completed");
+})
+
+async function ResetDaily() {
+  await questOwnController.resetDailyQuest();
+  await giftOwnController.resetDailyGift();
+}
 module.exports = router;
