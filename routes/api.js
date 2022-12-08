@@ -530,8 +530,8 @@ router.get('/resetDaily', async function (req, res, next) {
   return ;
 });
 
-//Reset ở khoảng thời gian định kỳ (mỗi 23h59')
-schedule.scheduleJob('*/59 */23 * * *', () => {
+//Reset ở khoảng thời gian định kỳ (mỗi 23h59m59s)
+schedule.scheduleJob('*/59 */59 */23 * * *', () => {
   ResetDaily();
   day++;
   console.log("Day " + day + " reset daily completed");
