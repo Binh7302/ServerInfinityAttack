@@ -21,8 +21,8 @@ exports.getAllFriends = async (user) => {
     const friend = await friendsService.getAllFriends(user);
     return friend;
 }
-exports.deleteAnFriend = async (id) =>{
-    const data = await friendsService.deleteAnFriend(id);
+exports.deleteAFriend = async (id) =>{
+    const data = await friendsService.deleteAFriend(id);
     return data;
 }
 exports.checkExistingFriend = async(userID) =>{

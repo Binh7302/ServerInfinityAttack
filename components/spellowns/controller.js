@@ -66,7 +66,7 @@ exports.getSpellOwnBySpellID = async (id) => {
     const spellOwn = await spellownService.getSpellOwnBySpellID(id);
     return spellOwn;
 }
-
+    
 exports.deleteSpellOwnBySpellID = async (id) => {
     await spellownService.deleteSpellOwnBySpellID(id);
 }

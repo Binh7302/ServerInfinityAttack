@@ -31,7 +31,7 @@ exports.getAllFriends = async (userr) => {
     console.log(friends);
     return friends;
 }
-exports.deleteAnFriend = async (id) =>{
+exports.deleteAFriend = async (id) =>{
     const data = await friendsModel.deleteOne({_id:id});
     return data;
 }

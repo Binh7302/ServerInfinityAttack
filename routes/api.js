@@ -15,7 +15,7 @@ const questController = require('../components/quests/controller');
 const giftController = require('../components/gifts/controller');
 const achievementController = require('../components/achievements/controller');
 const achievementLevelController = require('../components/achievementlevels/controller');
-const friendsController = require('../components/friends/controller');
+const friendsController = require("../components/friends/controller");
 
 let day = 0;
 // http://localhost:3000/api/login
@@ -92,7 +92,7 @@ router.post('/get-character-own', async function (req, res, next) {
 });
 
 // http://localhost:3000/api/get-characters
-router.get('/get-characters', async function (req, res, next) {
+router.post('/get-characters', async function (req, res, next) {
   const data = await characterController.getCharacters();
   console.log(data);
   return res.json(data);
@@ -152,6 +152,7 @@ router.post('/getSpellOwn',async function(req,res,next){
   console.log(data);
   return res.json(data);
 })
+
 // https://localhost:3000/api/updateAmountSpell
 router.post('/updateAmountSpell',async function(req,res,next){
   const {_id,amount} = req.body;
@@ -214,9 +215,9 @@ router.post('/getAllFriends', async function (req, res, next) {
   return res.json(data);
 });
 // http://localhost:3000/api/deleteAnFriend
-router.post('/deleteAnFriend', async function (req, res, next) {
+router.post('/deleteAFriend', async function (req, res, next) {
   const { id } = req.body;
-  const data = await friendsController.deleteAnFriend(id);
+  const data = await friendsController.deleteAFriend(id);
   return res.json(data);
 });
 // http://localhost:3000/api/checkExistingFriend
