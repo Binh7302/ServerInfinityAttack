@@ -71,7 +71,7 @@ router.post('/register-admin', async function (req, res, next) {
 });
 
 // Home
-router.get('/home-admin', [authentication.checkLoginAdmin], async function (req, res, next) {
+router.get('/home-admin',  authentication.checkLoginAdmin, async function (req, res, next) {
   const users = await userController.getUsers();
   res.render('home-admin', { users: users });
 });
@@ -169,6 +169,7 @@ router.post('/:id/charOwnEdit', [authentication.checkLoginAdmin], async function
 // Char List
 router.get('/charList', [authentication.checkLoginAdmin], async function (req, res, next) {
   const chars = await charController.getCharacters();
+  console.log("chars: ", chars);
   res.render('charList', { chars: chars });
 });
 

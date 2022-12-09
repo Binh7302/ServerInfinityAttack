@@ -1,0 +1,135 @@
+<section style="position: static;" id="container">
+    <!-- **********************************************************************************************************************************************************
+      TOP BAR CONTENT & NOTIFICATIONS
+      *********************************************************************************************************************************************************** -->
+    <!--header start-->
+    <header class="header black-bg">
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta name="description" content="">
+        <meta name="author" content="Dashboard">
+        <meta name="keyword" content="Dashboard, Bootstrap, Admin, Template, Theme, Responsive, Fluid, Retina">
+
+        <title>DASHGUM - Bootstrap Admin Template</title>
+
+        <!-- Bootstrap core CSS -->
+        <link href="/css/bootstrap.css" rel="stylesheet">
+        <!--external css-->
+        <link href="/stylesheets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+
+        <!-- Custom styles for this template -->
+        <link href="/css/style.css" rel="stylesheet">
+        <link href="/css/style-responsive.css" rel="stylesheet">
+        <div class="sidebar-toggle-box">
+            <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
+        </div>
+        <!--logo start-->
+        <a href="/products" class="logo"><b>Owner Website</b></a>
+        <!--logo end-->
+        <div class="nav notify-row" id="top_menu">
+        </div>
+        <div class="top-menu">
+            <ul class="nav pull-right top-menu">
+                <li><a class="logout" href="/owner/logout-owner">Logout</a></li>
+            </ul>
+        </div>
+    </header>
+    <!--header end-->
+
+    <!-- **********************************************************************************************************************************************************
+      MAIN SIDEBAR MENU
+      *********************************************************************************************************************************************************** -->
+    <!--sidebar start-->
+    <aside>
+        <div id="sidebar" class="nav-collapse ">
+            <!-- sidebar menu start-->
+            <ul class="sidebar-menu" id="nav-accordion">
+
+                <p class="centered"><a href="profile.html"><img src="/images/ui-sam.png" class="img-circle"
+                            width="200"></a></p>
+                <h5 class="centered">Owner</h5>
+
+                <li class="sub-menu">
+                    <a href="/owner/home-owner">
+                        <i class="fa fa-desktop"></i>
+                        <span>Xử lý đăng kí</span>
+                    </a>
+                </li>
+
+                <li class="sub-menu">
+                    <a class="active" href="/owner/admin-management">
+                        <i class="fa fa-bars"></i>
+                        <span>Quản lý admin</span>
+                    </a>
+                </li>
+
+            </ul>
+            <!-- sidebar menu end-->
+        </div>
+    </aside>
+    <!--sidebar end-->
+
+    <!-- **********************************************************************************************************************************************************
+      MAIN CONTENT
+      *********************************************************************************************************************************************************** -->
+    <!--main content start-->
+    <div style="position: absolute; top: 120px; left: 230px;" class="content">
+        <div style="width: 1000px" class="container">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-8">
+                            <h2>Quản lí admin</h2>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th style="width: 40px;">STT</th>
+                            <th style="width: 200px;">Tên admin</th>
+                            <th style="width: 180px;">Tài khoản</th>
+                            <th style="width: 100px;"></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#each admins}}
+                        <tr>
+                            <td>{{this.index}}</td>
+                            <td>{{this.name}}</td>
+                            <td>{{this.username}}</td>
+                            <td>
+                                <form action="/owner/{{this._id}}/delete" method="post" role="form">
+                                    <button class="btn btn-theme btn-block" type="submit"></i>XÓA</button>
+                                </form>
+                            </td>
+                        </tr>
+                        {{/each}}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+    <!--main content end-->
+    <!--footer start-->
+    {{!-- <footer style="position: fixed; bottom: 0; left: 210px; width: 1223px" class="site-footer">
+        <div class="text-center">
+            2014 - Alvarez.is
+            <a href="index.html#" class="go-top">
+                <i class="fa fa-angle-up"></i>
+            </a>
+        </div>
+    </footer> --}}
+    <!--footer end-->
+</section>
+<script>
+
+    // http://locahost:3000/oders/odersProcessing/:id/edit
+    const verify = (id) => {
+        window.location.href = `owner/${id}/verify`;
+
+    }
+
+
+</script>

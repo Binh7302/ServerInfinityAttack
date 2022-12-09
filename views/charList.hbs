@@ -45,8 +45,8 @@
             <!-- sidebar menu start-->
             <ul class="sidebar-menu" id="nav-accordion">
 
-                <p class="centered"><a href="profile.html"><img src="/images/ui-sam.png" class="img-circle"
-                            width="60"></a></p>
+                <p class="centered"><a href="/admin/home-admin"><img src="/images/ui-sam.png" class="img-circle"
+                            width="200"></a></p>
                 <h5 class="centered">Admin </h5>
                 <li class="active" class="sub-menu">
                     <a href="/admin/home-admin">
@@ -97,7 +97,8 @@
                         <tr>
                             <th style="width: 40px;">STT</th>
                             <th style="width: 100px;">Tên nhân vật</th>
-                            <th style="width: 100px;">Giá</th>
+                            <th style="width: 200px;">Giá</th>
+                            <th style="width: 100px;">Hình ảnh</th>
                             <th style="width: 100px;"></th>
                             <th style="width: 100px;"></th>
                         </tr>
@@ -108,6 +109,9 @@
                             <td>{{this.index}}</td>
                             <td>{{this.name}}</td>
                             <td>{{this.price}}</td>
+                            <td>
+                                <img src="{{this.image}}" width="150" height="100">
+                            </td>
                             <td>
                                 <form action="/admin/{{this._id}}/Levels" method="get" role="form">
                                     <button class="btn btn-theme btn-block" type="submit"></i>Levels</button>

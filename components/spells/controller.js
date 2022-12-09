@@ -13,6 +13,7 @@ exports.getSpells = async () => {
             price: item.price,
             total:item.total,
             index: index + 1,
+            image: item.image
         }
         return item;
     });

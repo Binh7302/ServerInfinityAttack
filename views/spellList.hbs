@@ -45,8 +45,8 @@
             <!-- sidebar menu start-->
             <ul class="sidebar-menu" id="nav-accordion">
 
-                <p class="centered"><a href="profile.html"><img src="/images/ui-sam.png" class="img-circle"
-                            width="60"></a></p>
+                <p class="centered"><a href="/admin/home-admin"><img src="/images/ui-sam.png" class="img-circle"
+                            width="200"></a></p>
                 <h5 class="centered">Admin </h5>
                 <li class="active" class="sub-menu">
                     <a href="/admin/home-admin">
@@ -97,6 +97,7 @@
                         <tr>
                             <th style="width: 40px;">STT</th>
                             <th style="width: 100px;">Tên spell</th>
+                            <th style="width: 100px;">Hình ảnh</th>
                             <th style="width: 200px;">Mô tả</th>
                             <th style="width: 100px;">Thời gian chờ</th>
                             <th style="width: 40px;">Giá</th>
@@ -109,6 +110,9 @@
                         <tr>
                             <td>{{this.index}}</td>
                             <td>{{this.name}}</td>
+                            <td>
+                                <img src="{{this.image}}" width="150" height="100">
+                            </td>
                             <td>{{this.description}}</td>
                             <td>{{this.cooldown}}</td>
                             <td>{{this.price}}</td>

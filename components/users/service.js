@@ -68,3 +68,21 @@ exports.getUsers = async() => {
 exports.update = async (_id, user) => {
     return await userModel.findByIdAndUpdate(_id,user);
   }
+
+  exports.changePassword = async (uid, newPass) => {
+    await userModel.findByIdAndUpdate(uid,{ password: newPass});
+}
+
+exports.findUserByEmail = async(email) => {
+    const user = await userModel.findOne({ email: email });
+    return user;
+}
+
+exports.addAndChangeEmail = async (uid, email) => {
+    await userModel.findByIdAndUpdate( uid, { email: email });
+}
+
+exports.findUserByEmail = async (email) => {
+    const user = await userModel.findOne({ email: email }, 'id username password name email gold gem');
+    return user;
+}

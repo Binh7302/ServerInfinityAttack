@@ -10,6 +10,7 @@ exports.getCharacters = async () => {
             name: item.name,       
             price: item.price,
             index: index + 1,
+            image: item.image
         }
         return item;
     });

@@ -8,6 +8,7 @@ const spellChema = new Schema({
     description: { type: String},
     cooldown: { type: String},
     price: { type: Number},
-    total:{type : Number}
+    total:{type : Number},
+    image: { type: String },
 });
 module.exports = mongoose.model('spell', spellChema);

@@ -541,4 +541,62 @@ async function ResetDaily() {
   await questOwnController.resetDailyQuest();
   await giftOwnController.resetDailyGift();
 }
+
+// http://localhost:3000/api/changePassword
+router.post('/changePassword', async function (req, res, next) {
+  const { uid, pass, newPass } = req.body;
+  const result = await userController.changePassword(uid, pass, newPass);
+  console.log("result change password: " + result);
+  return res.json(result);
+});
+
+// http://localhost:3000/api/sendCodeAddEmail
+router.post('/sendCodeAddEmail', async function (req, res, next) {
+  const { uid, email } = req.body;
+  const result = await userController.sendCodeAddEmail(uid, email);
+  console.log("result send code add email: " + result);
+  return res.json(result);
+});
+
+// http://localhost:3000/api/addEmail
+router.post('/addEmail', async function (req, res, next) {
+  const { token } = req.body;
+  const result = await userController.addEmail( token);
+  console.log("result send code add email: " , result);
+  return res.json(result);
+});
+
+// http://localhost:3000/api/sendCodeChangeEmail
+router.post('/sendCodeChangeEmail', async function (req, res, next) {
+  const { uid } = req.body;
+  const user = await userController.getUserById(uid);
+  const result = await userController.sendCodeChangeEmail(uid, user.email);
+  console.log("result send code add email: " + result);
+  return res.json(result);
+});
+
+// http://localhost:3000/api/changeEmail
+router.post('/changeEmail', async function (req, res, next) {
+  const { uid, email, token } = req.body;
+  const result = await userController.changeEmail(uid, email, token);
+  console.log("result send code add email: " , result);
+  return res.json(result);
+});
+
+// http://localhost:3000/api/sendCodeForgotPass
+router.post('/sendCodeForgotPass', async function (req, res, next) {
+  const { email } = req.body;
+  const result = await userController.sendCodeForgotPass(email);
+  console.log("result send code add email: " + result);
+  return res.json(result);
+});
+
+// http://localhost:3000/api/forgotPass
+router.post('/forgotPass', async function (req, res, next) {
+  const { uid, email, token } = req.body;
+  const result = await userController.changeEmail(uid, email, token);
+  console.log("result send code add email: " , result);
+  return res.json(result);
+});
+
 module.exports = router;

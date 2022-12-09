@@ -10,7 +10,7 @@ const adminController = require('../components/admins/controller');
 const authentication = require('../middle/authentication');
 
 // login
-router.get('/login-owner', [authentication.checkLoginOwner], function (req, res, next) {
+router.get('/login-owner', function (req, res, next) {
   res.render('login-owner');
 });
 
@@ -32,7 +32,7 @@ router.post('/login-owner', async function (req, res, next) {
   }
 });
 
-router.get('/logout-owner', [authentication.checkLoginOwner], function (req, res, next) {
+router.get('/logout-owner', function (req, res, next) {
   req.session.destroy(function (err) {
     // nếu đăng xuất thành công chuyển qua đăng nhập
     res.redirect('/owner/login-owner');
@@ -41,7 +41,7 @@ router.get('/logout-owner', [authentication.checkLoginOwner], function (req, res
 
 // home
 router.get('/home-owner', async function (req, res, next) {
-  const data = await adminController.getAdmins();
+  const data = await adminController.getAdminsByStatus(0);
   res.render('home-owner', { admins: data });
 });
 
@@ -59,6 +59,12 @@ router.post('/:id/delete', async function (req, res, next) {
   let { id } = req.params;
   await adminController.delete(id);
   res.redirect('/owner/home-owner');
+});
+
+// admin management
+router.get('/admin-management', async function (req, res, next) {
+  const admins = await adminController.getAdminsByStatus(1);
+  res.render('admin-management', { admins: admins });
 });
 
 module.exports = router;

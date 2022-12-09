@@ -6,6 +6,7 @@ const characterSchema = new Schema({
     id: { type: ObjectId },
     name: { type: String},
     price: { type: Number},
+    image: { type: String },
 });
 
 module.exports = mongoose.model('character', characterSchema);
