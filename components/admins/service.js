@@ -20,9 +20,9 @@ exports.getAdminByUsername = async (username) => {
 }
 
 //Lấy thông tin danh sách admin chưa được duyệt
-exports.getAdmins = async () => {
+exports.getAdminsByStatus = async (status) => {
     // return data;
-    const admins = await adminModel.find({ status: 0 });
+    const admins = await adminModel.find({ status: status });
     return admins;
 }
 
