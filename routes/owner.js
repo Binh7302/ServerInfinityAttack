@@ -41,7 +41,7 @@ router.get('/logout-owner', function (req, res, next) {
 
 // home
 router.get('/home-owner', async function (req, res, next) {
-  const data = await adminController.getAdminsByStatus(0);
+  const data = await adminController.getAdminsByStatus(1);
   res.render('home-owner', { admins: data });
 });
 
@@ -62,9 +62,8 @@ router.post('/:id/delete', async function (req, res, next) {
 });
 
 // admin management
-router.get('/admin-management', async function (req, res, next) {
-  const admins = await adminController.getAdminsByStatus(1);
-  res.render('admin-management', { admins: admins });
+router.get('/register-admin', async function (req, res, next) {
+  res.render('register-admin');
 });
 
 module.exports = router;

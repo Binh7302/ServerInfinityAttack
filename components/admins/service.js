@@ -8,7 +8,7 @@ exports.loginAdmin = async (username) => {
 
 // Đăng kí
 exports.registerAdmin = async (username, password, name) => {
-    const admin = new adminModel({ username, password, name, status: 0});
+    const admin = new adminModel({ username, password, name});
     return await admin.save();
 }
 
@@ -20,9 +20,9 @@ exports.getAdminByUsername = async (username) => {
 }
 
 //Lấy thông tin danh sách admin chưa được duyệt
-exports.getAdminsByStatus = async (status) => {
+exports.getAdmins = async () => {
     // return data;
-    const admins = await adminModel.find({ status: status });
+    const admins = await adminModel.find();
     return admins;
 }
 

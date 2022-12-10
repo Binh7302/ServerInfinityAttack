@@ -24,7 +24,7 @@
             <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
         </div>
         <!--logo start-->
-        <a href="/products" class="logo"><b>Owner Website</b></a>
+        <a href="/owner/home-owner" class="logo"><b>Owner Website</b></a>
         <!--logo end-->
         <div class="nav notify-row" id="top_menu">
         </div>
@@ -45,24 +45,27 @@
             <!-- sidebar menu start-->
             <ul class="sidebar-menu" id="nav-accordion">
 
-                <p class="centered"><a href="profile.html"><img src="/images/ui-sam.png" class="img-circle"
+                <p class="centered"><a href="/owner/home-owner"><img src="/images/ui-sam.png" class="img-circle"
                             width="200"></a></p>
                 <h5 class="centered">Owner</h5>
-
                 <li class="sub-menu">
-                    <a href="/owner/home-owner">
+                    <a class="active" href="/owner/home-owner">
                         <i class="fa fa-desktop"></i>
-                        <span>Xử lý đăng kí</span>
-                    </a>
-                </li>
-
-                <li class="sub-menu">
-                    <a class="active" href="/owner/admin-management">
-                        <i class="fa fa-bars"></i>
                         <span>Quản lý admin</span>
                     </a>
                 </li>
-
+                <li class="sub-menu">
+                    <a href="/owner/register-admin">
+                        <i class="fa fa-bars"></i>
+                        <span>Thêm admin</span>
+                    </a>
+                </li>
+                <li class="active" class="sub-menu">
+                    <a href="/owner/statistic">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <span>Thống kê</span>
+                    </a>
+                </li>
             </ul>
             <!-- sidebar menu end-->
         </div>

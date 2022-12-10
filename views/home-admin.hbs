@@ -24,7 +24,7 @@
             <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
         </div>
         <!--logo start-->
-        <a href="/products" class="logo"><b>Admin Website</b></a>
+        <a href="/admin/home-admin" class="logo"><b>Admin Website</b></a>
         <!--logo end-->
         <div class="nav notify-row" id="top_menu">
         </div>
@@ -66,12 +66,6 @@
                         <span>Danh sách spell</span>
                     </a>
                 </li>
-                <li class="active" class="sub-menu">
-                    <a href="/admin/statistic">
-                        <i class="fa fa-bar-chart-o"></i>
-                        <span>Thống kê</span>
-                    </a>
-                </li>
             </ul>
             <!-- sidebar menu end-->
         </div>
@@ -101,7 +95,6 @@
                             <th style="width: 80px;">Gem</th>
                             <th style="width: 80px;">Gold</th>
                             {{!-- <th>Trạng thái</th> --}}
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody>
@@ -121,11 +114,6 @@
                             <td>
                                 <form action="/admin/{{this._id}}/spellOwn" method="get" role="form">
                                     <button class="btn btn-theme btn-block" type="submit"></i>Danh sách spell</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form action="/admin/{{this._id}}/userEdit" method="get" role="form">
-                                    <button class="btn btn-theme btn-block" type="submit"></i>Chỉnh sửa</button>
                                 </form>
                             </td>
                         </tr>

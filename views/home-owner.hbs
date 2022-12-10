@@ -48,21 +48,24 @@
                 <p class="centered"><a href="/owner/home-owner"><img src="/images/ui-sam.png" class="img-circle"
                             width="200"></a></p>
                 <h5 class="centered">Owner</h5>
-
                 <li class="sub-menu">
                     <a class="active" href="/owner/home-owner">
                         <i class="fa fa-desktop"></i>
-                        <span>Xử lý đăng kí</span>
-                    </a>
-                </li>
-
-                <li class="sub-menu">
-                    <a href="/owner/admin-management">
-                        <i class="fa fa-bars"></i>
                         <span>Quản lý admin</span>
                     </a>
                 </li>
-
+                <li class="sub-menu">
+                    <a href="/owner/register-admin">
+                        <i class="fa fa-bars"></i>
+                        <span>Thêm admin</span>
+                    </a>
+                </li>
+                <li class="active" class="sub-menu">
+                    <a href="/owner/statistic">
+                        <i class="fa fa-bar-chart-o"></i>
+                        <span>Thống kê</span>
+                    </a>
+                </li>
             </ul>
             <!-- sidebar menu end-->
         </div>
@@ -74,22 +77,21 @@
       *********************************************************************************************************************************************************** -->
     <!--main content start-->
     <div style="position: absolute; top: 120px; left: 230px;" class="content">
-        <div style="width: 1000px" class="container">
+        <div style="width: 500px" class="container">
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-8">
-                            <h2>Danh sách Chờ</h2>
+                            <h2>Danh sách Admin</h2>
                         </div>
                     </div>
                 </div>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th style="width: 40px;">STT</th>
+                            <th style="width: 70px;">STT</th>
                             <th style="width: 200px;">Tên admin</th>
-                            <th style="width: 180px;">Tài khoản</th>
-                            <th></th>
+                            <th style="width: 280px;">Tài khoản</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -98,16 +100,6 @@
                             <td>{{this.index}}</td>
                             <td>{{this.name}}</td>
                             <td>{{this.username}}</td>
-                            <td>
-                                <form action="/owner/{{this._id}}/verify" method="post" role="form">
-                                    <button class="btn btn-theme btn-block" type="submit"></i>ĐỒNG Ý</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form action="/owner/{{this._id}}/delete" method="post" role="form">
-                                    <button class="btn btn-theme btn-block" type="submit"></i>Từ CHối</button>
-                                </form>
-                            </td>
                         </tr>
                         {{/each}}
                     </tbody>

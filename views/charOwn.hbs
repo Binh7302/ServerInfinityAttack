@@ -66,12 +66,6 @@
                         <span>Danh sách spell</span>
                     </a>
                 </li>
-                <li class="active" class="sub-menu">
-                    <a href="/admin/statistic">
-                        <i class="fa fa-bar-chart-o"></i>
-                        <span>Thống kê</span>
-                    </a>
-                </li>
             </ul>
             <!-- sidebar menu end-->
         </div>
@@ -83,44 +77,31 @@
       *********************************************************************************************************************************************************** -->
     <!--main content start-->
     <div style="position: absolute; top: 120px; left: 230px;" class="content">
-        <div style="width: 1000px" class="container">
+        <div style="width: 500px" class="container">
             <div class="table-wrapper">
                 <div class="table-title">
                     <div class="row">
                         <div class="col-sm-8" style="display: inline-block;">
                             <h2>Danh sách <b>Nhân Vật Sở Hữu</b> user {{user.username}}</h2>
                         </div>
-                        <div class="col-sm-4">
-                            <form action="/admin/{{UID}}/addCharOwn" method="get" role="form">
-                                <button style="margin-top: 15px; margin-left: 203px; width: 100px;"
-                                    class="btn btn-theme btn-block" type="submit"><i class="fa fa-plus"></i>Thêm
-                                    Mới</button>
-                            </form>
-                        </div>
                     </div>
                 </div>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
-                            <th style="width: 40px;">Tên nhân vật</th>
-                            <th style="width: 200px;">Cấp</th>
+                            <th style="width: 70px;">Tên nhân vật</th>
+                            <th style="width: 70px;">Hình ảnh</th>
+                            <th style="width: 70px;">Cấp</th>
                         </tr>
                     </thead>
                     <tbody>
                         {{#each charOwns}}
                         <tr>
                             <td>{{this.characterID.name}}</td>
+                            <td>
+                                <img src="{{this.characterID.image}}" width="100" height="70">
+                            </td>
                             <td>{{this.levelID.level}}</td>
-                            <td>
-                                <form action="/admin/{{this._id}}/charOwnEdit" method="get" role="form">
-                                    <button class="btn btn-theme btn-block" type="submit"></i>Chỉnh sửa</button>
-                                </form>
-                            </td>
-                            <td>
-                                <form action="/admin/{{this._id}}/charOwnDelete/{{this.userID._id}}" method="post" role="form">
-                                    <button class="btn btn-theme btn-block" type="submit"></i>Xóa</button>
-                                </form>
-                            </td>
                         </tr>
                         {{/each}}
                     </tbody>
