@@ -11,7 +11,7 @@ exports.getQuestOwns = async () => {
 
 // Lấy questown bằng userID
 exports.getQuestOwnsByUserID = async (userID) => {
-  const questown = await questownModel.find({ userID: userID }).populate('userID questID');
+  const questown = await questownModel.find({ userID: userID }).populate('userID questID').sort('status');
   return questown;
 }
 
