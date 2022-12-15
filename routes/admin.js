@@ -55,21 +55,6 @@ router.get('/register-admin', function (req, res, next) {
   res.render('register-admin');
 });
 
-router.post('/register-admin', async function (req, res, next) {
-  const { username, password, confirm_password, name } = req.body;
-
-  // thực hiện kiểm tra đăng nhập
-  const result = await adminController.registerAdmin(username, password, confirm_password, name);
-  console.log("result: " + result);
-  if (result != null) {
-    // nếu đúng chuyển qua trang đăng nhập
-    res.redirect('/admin/login-admin');
-  } else {
-    // nếu sai vẫn ở trang đăng kí
-    res.redirect('/admin/register-admin');
-  }
-});
-
 // Home
 router.get('/home-admin',  authentication.checkLoginAdmin, async function (req, res, next) {
   const users = await userController.getUsers();

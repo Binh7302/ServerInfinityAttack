@@ -24,7 +24,7 @@
             <div class="fa fa-bars tooltips" data-placement="right" data-original-title="Toggle Navigation"></div>
         </div>
         <!--logo start-->
-        <a href="/products" class="logo"><b>Owner Website</b></a>
+        <a href="/owner/logout-owner" class="logo"><b>Owner Website</b></a>
         <!--logo end-->
         <div class="nav notify-row" id="top_menu">
         </div>
@@ -100,6 +100,11 @@
                             <td>{{this.index}}</td>
                             <td>{{this.name}}</td>
                             <td>{{this.username}}</td>
+                            <td>
+                                <form action="/owner/{{this._id}}/delete" method="post" role="form">
+                                    <button class="btn btn-theme btn-block" type="submit"></i>Xóa</button>
+                                </form>
+                            </td>
                         </tr>
                         {{/each}}
                     </tbody>

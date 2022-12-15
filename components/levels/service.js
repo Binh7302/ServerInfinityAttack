@@ -23,7 +23,10 @@ exports.updateLevel = async (id, damage, hp, cost) => {
 
 exports.getLevelByCharNameAndUid = async(charName, uid) => {
     const char = await charModel.findOne({ name: charName });
-    const charOwn = await charOwnModel.findOne({ userID: uid, characterID: char._id});
-    const level = await levelModel.findOne({ id: charOwn.levelId });
+    console.log(char);
+    const charOwn = await charOwnModel.findOne({ userID: uid, characterID: char._id}).populate('levelID');
+    console.log(charOwn);
+    const level = await levelModel.findOne({ _id: charOwn.levelID._id });
+    console.log(level);
     return level;
 }

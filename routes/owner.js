@@ -45,6 +45,21 @@ router.get('/home-owner', async function (req, res, next) {
   res.render('home-owner', { admins: data });
 });
 
+//register
+router.post('/register-admin', async function (req, res, next) {
+  const { username, password, confirm_password, name } = req.body;
+
+  // thực hiện kiểm tra đăng nhập
+  const result = await adminController.registerAdmin(username, password, confirm_password, name);
+  console.log("result: " + result);
+  if (result != null) {
+    // nếu đúng chuyển qua trang đăng nhập
+    res.redirect('/owner/home-owner');
+  } else {
+    // nếu sai vẫn ở trang đăng kí
+  }
+});
+
 // verify admin
 router.post('/:id/verify', async function (req, res, next) {
   // cập nhật sản phẩm vào database

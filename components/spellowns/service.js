@@ -35,7 +35,7 @@ exports.addNewSpell = async (userID, spellID, amount) => {
 
 // Lấy spellOwns bằng userID
 exports.getSpellOwnsByUID = async (uid) => {
-  const spellOwns = await spellownModel.find({ userID: uid }).populate('userID spellID');
+  const spellOwns = await spellownModel.find({ userID: uid }).populate('userID spellID').sort('status');
   return spellOwns;
 }
 

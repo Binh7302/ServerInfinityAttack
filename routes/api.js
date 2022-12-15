@@ -39,7 +39,7 @@ router.post('/register', async function (req, res, next) {
   // thực hiện kiểm tra đăng nhập
   const result = await userController.register(username, password, name);
   console.log("result: ", result);
-  if(result == "Đăng kí thành công"){
+  if(result == "Sign up successfully"){
     //add first character
     await characterOwnController.addFirstCharacter(username);
 
@@ -519,6 +519,7 @@ router.post('/update-all-challenge-achieved-achievement-by-name', async function
 // http://localhost:3000/api/getLevelByCharNameAndUid
 router.post('/getLevelByCharNameAndUid', async function (req, res, next) {
   const { charName, uid } = req.body;
+  console.log("charname1: " + charName + " uid1: " + uid);
   const level = await levelController.getLevelByCharNameAndUid(charName, uid);
   console.log("level ngoai api: " + level);
   return res.json(level);
@@ -563,24 +564,23 @@ router.post('/sendCodeAddEmail', async function (req, res, next) {
 router.post('/addEmail', async function (req, res, next) {
   const { token } = req.body;
   const result = await userController.addEmail( token);
-  console.log("result send code add email: " , result);
+  console.log("result add email: " , result);
   return res.json(result);
 });
 
 // http://localhost:3000/api/sendCodeChangeEmail
 router.post('/sendCodeChangeEmail', async function (req, res, next) {
   const { uid } = req.body;
-  const user = await userController.getUserById(uid);
-  const result = await userController.sendCodeChangeEmail(uid, user.email);
-  console.log("result send code add email: " + result);
+  const result = await userController.sendCodeChangeEmail(uid);
+  console.log("result send code change email: " + result);
   return res.json(result);
 });
 
 // http://localhost:3000/api/changeEmail
 router.post('/changeEmail', async function (req, res, next) {
-  const { uid, email, token } = req.body;
-  const result = await userController.changeEmail(uid, email, token);
-  console.log("result send code add email: " , result);
+  const { newEmail, token } = req.body;
+  const result = await userController.changeEmail(newEmail, token);
+  console.log("result change email: " , result);
   return res.json(result);
 });
 
@@ -588,15 +588,15 @@ router.post('/changeEmail', async function (req, res, next) {
 router.post('/sendCodeForgotPass', async function (req, res, next) {
   const { email } = req.body;
   const result = await userController.sendCodeForgotPass(email);
-  console.log("result send code add email: " + result);
+  console.log("result send code forgot pass: " + result);
   return res.json(result);
 });
 
 // http://localhost:3000/api/forgotPass
 router.post('/forgotPass', async function (req, res, next) {
-  const { uid, email, token } = req.body;
-  const result = await userController.changeEmail(uid, email, token);
-  console.log("result send code add email: " , result);
+  const { newPass, token } = req.body;
+  const result = await userController.forgotPass(newPass, token);
+  console.log("result forgot pass: " , result);
   return res.json(result);
 });
 

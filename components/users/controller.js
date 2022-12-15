@@ -20,15 +20,15 @@ const mg = mailgun({ apiKey: '55f0285515c39cc483885a0b592730e3-bdb2c8b4-0115bda7
 exports.register = async (username, password,  name) => {
     // bắt lỗi
     let user = await userService.findUserByUserName(username);
-    if (user) return "Tài khoản đã tồn tại";
+    if (user) return "Username already exists";
     let user1 = await userService.findUserByName(name);
-    if (user1) return "Tên nhân vật đã tồn tại";
+    if (user1) return "Name already exists";
     console.log(user);
     // mã hóa mật khẩu
     const hash = await bcrypt.hash(password, await bcrypt.genSalt(10));
     // lưu vào db
     user = await userService.register(username, hash, name);
-    return "Đăng kí thành công";
+    return "Sign up successfully";
 }
 
 //controller đăng nhập
@@ -37,11 +37,11 @@ exports.login = async (username, password) => {
     // bắt lỗi
     const user = await userService.findUserByUserName(username);
     console.log("user: " + user);
-    if (!user) return "Sai tài khoản hoặc mật khẩu";
+    if (!user) return "Account or password error";
     console.log("username: " + username + " password: " + password, "userpassword: " + user.password);
     const checkPassword = await bcrypt.compare(password, user.password);
     console.log("checkPassword: " + checkPassword);
-    if (!checkPassword) return "Sai tài khoản hoặc mật khẩu";
+    if (!checkPassword) return "Account or password error";
     return user._id;
 }
 
@@ -105,17 +105,17 @@ exports.changePassword = async (uid, pass, newPass) => {
     const user = await userService.findUserById(uid);
     console.log("pass: " + pass + " user pass: " + user.password);
     const checkPassword = await bcrypt.compare(pass, user.password);
-    if (!checkPassword) return "Mật khẩu cũ không đúng";
+    if (!checkPassword) return "Old password is not correct";
 
     const hash = await bcrypt.hash(newPass, await bcrypt.genSalt(10));
     await userService.changePassword(uid, hash);
-    return "Đổi mật khẩu thành công";
+    return "Change password successfully";
 }
 
 exports.sendCodeAddEmail = async (uid, email) => {
     const user = await userService.findUserByEmail(email);
     if (user) {
-        return "Email đã được sử dụng";
+        return "Email has already been used by another user";
     } else {
         // tạo code gửi về email để thêm email vào tài khoản
         const token = await jwt.sign({ uid: uid, email: email }, 'addEmail', { expiresIn: '1m' });
@@ -132,7 +132,7 @@ exports.sendCodeAddEmail = async (uid, email) => {
             console.log(error);
             console.log(body);
         });
-        return "Đã gửi mã thêm email về mail hiện tại của bạn";
+        return "Add email code was sent to your email address";
     }
 }
 
@@ -143,13 +143,13 @@ exports.addEmail = async (token) => {
         const { uid, email } = decoded;
         const user = await userService.findUserByEmail(email);
         if (user) {
-            result = "Email đã được sử dụng";
+            result = "Email has already been used by another user";
         } else {
             if (error == null) {
                 await userService.addAndChangeEmail(uid, email);
-                result = "Thêm email thành công";
+                result = "Add email successfully";
             } else {
-                result = "Mã không đúng hoặc đã hết hạn";
+                result = "Code was expired or incorrect";
             }
         }
     });
@@ -158,7 +158,8 @@ exports.addEmail = async (token) => {
 
 exports.sendCodeChangeEmail = async (uid) => {
     const user = await userService.findUserById(uid);
-    const email = null;
+    let email = null;
+    console.log("change email "+user);
     if (user) {
         email = user.email;
 
@@ -177,7 +178,7 @@ exports.sendCodeChangeEmail = async (uid) => {
             console.log(error);
             console.log(body);
         });
-        return "Đã gửi mã đổi email về email hiện tại của bạn";
+        return "Change email code was sent to your email address";
     }
 }
 
@@ -188,13 +189,13 @@ exports.changeEmail = async (newEmail, token) => {
         const { uid } = decoded;
         const user = await userService.findUserByEmail(newEmail);
         if (user) {
-            result = "Email đã được sử dụng";
+            result = "Email has already been used by another user";
         } else {
             if (error == null) {
                 await userService.addAndChangeEmail(uid, newEmail);
-                result = "Đổi email thành công";
+                result = "Change email successfully";
             } else {
-                result = "Mã không đúng hoặc đã hết hạn";
+                result = "Code was expired or incorrect";
             }
         }
     });
@@ -204,7 +205,7 @@ exports.changeEmail = async (newEmail, token) => {
 exports.sendCodeForgotPass = async (email) => {
     const user = await userService.findUserByEmail(email);
     if (!user) {
-        return "Không tìm thấy tài khoản với email trên"
+        return "Account cannot be found with this email"
     } else {
         // tạo code gửi về email để đổi mật khẩu
         const token = await jwt.sign({ uid: user._id }, 'forgotPass', { expiresIn: '1m' });
@@ -221,7 +222,7 @@ exports.sendCodeForgotPass = async (email) => {
             console.log(error);
             console.log(body);
         });
-        return "Đã gửi mã quên mật khẩu về email hiện tại của bạn";
+        return "Change password code was sent to your email address";
     }
 }
 
@@ -231,10 +232,11 @@ exports.forgotPass = async (newPass, token) => {
         console.log("error change email: " + error);
         const { uid } = decoded;
         if (error == null) {
-            await userService.changePassword(uid, newPass)
-            result = "Đổi mật khẩu thành công";
+            const hash = await bcrypt.hash(newPass, await bcrypt.genSalt(10));
+            await userService.changePassword(uid, hash);
+            result = "Change password successfully";
         } else {
-            result = "Mã không đúng hoặc đã hết hạn";
+            result = "Code was expired or incorrect";
         }
     });
     return result;
