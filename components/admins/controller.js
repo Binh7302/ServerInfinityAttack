@@ -14,9 +14,24 @@ exports.loginAdmin = async (username, password) => {
     return { _id: admin._id, username: admin.username };
 }
 
-// lấy danh sách admin có status = 0
-exports.getAdminsByStatus = async (status) => {
+// lấy danh sách admin
+exports.getAdmins = async () => {
     let data = await adminService.getAdmins();
+    data = data.map((item,index) => {
+        item = {
+            _id: item._id,
+            name: item.name,
+            username: item.username,
+            index: index + 1,
+        }
+        return item;
+    });
+    return data;
+}
+
+// lấy danh sách admin
+exports.getAdminsByUserName = async (username) => {
+    let data = await adminService.getAdminsByUserName(username);
     data = data.map((item,index) => {
         item = {
             _id: item._id,

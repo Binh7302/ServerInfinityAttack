@@ -41,8 +41,21 @@ router.get('/logout-owner', function (req, res, next) {
 
 // home
 router.get('/home-owner', async function (req, res, next) {
-  const data = await adminController.getAdminsByStatus(1);
+  const data = await adminController.getAdmins();
   res.render('home-owner', { admins: data });
+});
+
+// home
+router.get('/home-owner/:username', async function (req, res, next) {
+  let { username } = req.params;
+  let data = null;
+  if (username.trim() == "") {
+    data = await adminController.getAdmins();
+    res.render('home-owner', { admins: data });
+  } else {
+    data = await adminController.getAdminsByUserName(username);
+    res.render('home-owner', { admins: data, username: username });
+  }
 });
 
 //register

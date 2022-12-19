@@ -86,6 +86,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="top-menu">
+                    <ul class="nav pull-right top-menu">
+                        <div class="col-sm-20">
+                            <input id="searchValue" type="text" class="" value="{{username}}">
+                            <button onclick="search()">Tìm kiếm</button>
+                        </div>
+                    </ul>
+                </div>
+                <br>
+                <br>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -126,12 +136,10 @@
     <!--footer end-->
 </section>
 <script>
-
-    // http://locahost:3000/oders/odersProcessing/:id/edit
-    const verify = (id) => {
-        window.location.href = `owner/${id}/verify`;
-
+    // http://localhost:3000/owner/home-owner/${username}
+    const search = () => {
+        const username = document.getElementById("searchValue").value
+        window.location.href = `http://localhost:3000/owner/home-owner/${username}`;
     }
-
 
 </script>

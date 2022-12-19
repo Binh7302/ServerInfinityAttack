@@ -94,6 +94,22 @@ exports.getUsers = async () => {
     return data;
 }
 
+// lấy danh sách users
+exports.getUsersBySearchValue = async (searchValue) => {
+    let data = await userService.getUsersBySearchValue(searchValue);
+    data = data.map((item,index) => {
+        item = {
+            _id: item._id,
+            name: item.name,
+            username: item.username,
+            index: index + 1,
+            gem: item.gem,
+            gold: item.gold,
+        }
+        return item;
+    });
+    return data;
+}
 
 exports.update = async (id, user) => {
     return await userService.update(id, user);

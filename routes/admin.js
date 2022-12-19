@@ -61,6 +61,19 @@ router.get('/home-admin',  authentication.checkLoginAdmin, async function (req, 
   res.render('home-admin', { users: users });
 });
 
+// home
+router.get('/home-admin/:searchValue', async function (req, res, next) {
+  let { searchValue } = req.params;
+  let data = null;
+  if (searchValue.trim() == "") {
+    data = await userController.getUsers();
+    res.render('home-admin', { users: data });
+  } else {
+    data = await userController.getUsersBySearchValue(searchValue);
+    res.render('home-admin', { users: data, searchValue: searchValue });
+  }
+});
+
 // User Edit
 router.get('/:id/userEdit', [authentication.checkLoginAdmin], async function (req, res, next) {
   const { id } = req.params;

@@ -86,6 +86,16 @@
                         </div>
                     </div>
                 </div>
+                <div class="top-menu">
+                    <ul class="nav pull-right top-menu">
+                        <div class="col-sm-20">
+                            <input id="searchValue" type="text" class="" value="{{searchValue}}">
+                            <button onclick="search()">Tìm kiếm</button>
+                        </div>
+                    </ul>
+                </div>
+                <br>
+                <br>
                 <table class="table table-bordered">
                     <thead>
                         <tr>
@@ -124,3 +134,12 @@
         </div>
     </div>
 </section>
+
+<script>
+    // http://localhost:3000/owner/home-owner/${username}
+    const search = () => {
+        const searchValue = document.getElementById("searchValue").value
+        window.location.href = `http://localhost:3000/admin/home-admin/${searchValue}`;
+    }
+
+</script>

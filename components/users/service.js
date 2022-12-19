@@ -65,6 +65,12 @@ exports.getUsers = async() => {
     return users = await userModel.find();
 }
 
+exports.getUsersBySearchValue = async (searchValue) => {
+    // return data;
+    const users = await userModel.find( { username: { $regex: searchValue } } );
+    return users;
+}
+
 exports.update = async (_id, user) => {
     return await userModel.findByIdAndUpdate(_id,user);
   }

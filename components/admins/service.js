@@ -25,6 +25,14 @@ exports.getAdmins = async () => {
     const admins = await adminModel.find();
     return admins;
 }
+//Lấy thông tin danh sách admin bằng thanh search
+exports.getAdminsByUserName = async (username) => {
+    // return data;
+    const admins = await adminModel.find( { username: { $regex: username } } )
+
+    console.log("search: " +admins);
+    return admins;
+}
 
 // Đồng ý duyệt admin( status 0 -> 1 )
 exports.verify = async (id) => {
