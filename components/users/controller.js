@@ -17,7 +17,7 @@ const DOMAIN = 'sandboxb991a2ab4151444f92fe624b7b674f3c.mailgun.org';
 const mg = mailgun({ apiKey: '55f0285515c39cc483885a0b592730e3-bdb2c8b4-0115bda7', domain: DOMAIN });
 
 // controller đăng kí
-exports.register = async (username, password,  name) => {
+exports.register = async (username, password, name) => {
     // bắt lỗi
     let user = await userService.findUserByUserName(username);
     if (user) return "Username already exists";
@@ -33,7 +33,7 @@ exports.register = async (username, password,  name) => {
 
 //controller đăng nhập
 exports.login = async (username, password) => {
-    
+
     // bắt lỗi
     const user = await userService.findUserByUserName(username);
     console.log("user: " + user);
@@ -58,11 +58,11 @@ exports.getUserByName = async (name) => {
     return user;
 }
 exports.updateGoldUser = async (id, gold) => {
-   return await userService.updateGoldUser(id,gold);
+    return await userService.updateGoldUser(id, gold);
 }
 exports.updateGemUser = async (id, gem) => {
-    return await userService.updateGemUser(id,gem);
- }
+    return await userService.updateGemUser(id, gem);
+}
 
 //controller lấy thông tin user
 exports.getUserById = async (id) => {
@@ -73,14 +73,14 @@ exports.getUserById = async (id) => {
 }
 
 exports.getTop5Users = async () => {
-    const top5Users = await  userService.getTop5Users();
+    const top5Users = await userService.getTop5Users();
     return top5Users;
 }
 
 // lấy danh sách users
 exports.getUsers = async () => {
     let data = await userService.getUsers();
-    data = data.map((item,index) => {
+    data = data.map((item, index) => {
         item = {
             _id: item._id,
             name: item.name,
@@ -97,7 +97,7 @@ exports.getUsers = async () => {
 // lấy danh sách users
 exports.getUsersBySearchValue = async (searchValue) => {
     let data = await userService.getUsersBySearchValue(searchValue);
-    data = data.map((item,index) => {
+    data = data.map((item, index) => {
         item = {
             _id: item._id,
             name: item.name,
@@ -175,7 +175,7 @@ exports.addEmail = async (token) => {
 exports.sendCodeChangeEmail = async (uid) => {
     const user = await userService.findUserById(uid);
     let email = null;
-    console.log("change email "+user);
+    console.log("change email " + user);
     if (user) {
         email = user.email;
 
@@ -256,5 +256,30 @@ exports.forgotPass = async (newPass, token) => {
         }
     });
     return result;
+}
 
+exports.generateRememberToken = async (uid) => {
+    // tạo code
+    if(uid.trim() ==""){
+        return null;
+    } else {
+        const token = await jwt.sign({ uid: uid }, 'remember', { expiresIn: '10h' });
+        console.log("error generate: " + token);
+        return token;
+    }
+}
+
+exports.checkRememberToken = async (token) => {
+    let result = null;
+    console.log("error remember: " + token);
+    await jwt.verify(token, 'remember', async function (error, decoded) {
+        console.log("error remember: " + error);
+        if (error == null) {
+            const { uid } = decoded;
+            result = uid;
+        } else {
+            result = "Code was expired";
+        }
+    });
+    return result;
 }

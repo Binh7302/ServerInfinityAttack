@@ -56,7 +56,7 @@ router.get('/register-admin', function (req, res, next) {
 });
 
 // Home
-router.get('/home-admin',  authentication.checkLoginAdmin, async function (req, res, next) {
+router.get('/home-admin',  [authentication.checkLoginAdmin], async function (req, res, next) {
   const users = await userController.getUsers();
   res.render('home-admin', { users: users });
 });

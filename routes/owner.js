@@ -10,7 +10,7 @@ const adminController = require('../components/admins/controller');
 const authentication = require('../middle/authentication');
 
 // login
-router.get('/login-owner', function (req, res, next) {
+router.get('/login-owner',[authentication.checkLoginOwner], function (req, res, next) {
   res.render('login-owner');
 });
 
@@ -23,7 +23,7 @@ router.post('/login-owner', async function (req, res, next) {
     // secret key
     const token_owner = jwt.sign({ id: result._id, username: result.username }, 'owner', { expiresIn: '20m' });
     console.log("token: " + token_owner);
-    req.session.token_owner = token_owner;
+    req.session.token = token_owner;
     // nếu đúng chuyển qua trang sản phẩm
     res.redirect('/owner/home-owner');
   } else {
@@ -32,7 +32,7 @@ router.post('/login-owner', async function (req, res, next) {
   }
 });
 
-router.get('/logout-owner', function (req, res, next) {
+router.get('/logout-owner',[authentication.checkLoginOwner], function (req, res, next) {
   req.session.destroy(function (err) {
     // nếu đăng xuất thành công chuyển qua đăng nhập
     res.redirect('/owner/login-owner');
@@ -40,13 +40,13 @@ router.get('/logout-owner', function (req, res, next) {
 });
 
 // home
-router.get('/home-owner', async function (req, res, next) {
+router.get('/home-owner',[authentication.checkLoginOwner], async function (req, res, next) {
   const data = await adminController.getAdmins();
   res.render('home-owner', { admins: data });
 });
 
 // home
-router.get('/home-owner/:username', async function (req, res, next) {
+router.get('/home-owner/:username',[authentication.checkLoginOwner], async function (req, res, next) {
   let { username } = req.params;
   let data = null;
   if (username.trim() == "") {
@@ -90,7 +90,7 @@ router.post('/:id/delete', async function (req, res, next) {
 });
 
 // admin management
-router.get('/register-admin', async function (req, res, next) {
+router.get('/register-admin',[authentication.checkLoginOwner], async function (req, res, next) {
   res.render('register-admin');
 });
 

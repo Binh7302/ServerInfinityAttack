@@ -600,4 +600,20 @@ router.post('/forgotPass', async function (req, res, next) {
   return res.json(result);
 });
 
+// http://localhost:3000/api/generateRememberToken
+router.post('/generateRememberToken', async function (req, res, next) {
+  const { uid } = req.body;
+  const result = await userController.generateRememberToken(uid);
+  console.log("result remember token: " , result);
+  return res.json(result);
+});
+
+// http://localhost:3000/api/checkRememberToken
+router.post('/checkRememberToken', async function (req, res, next) {
+  const { token } = req.body;
+  const result = await userController.checkRememberToken(token);
+  console.log("result forgot pass: " , result);
+  return res.json(result);
+});
+
 module.exports = router;

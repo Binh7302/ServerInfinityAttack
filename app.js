@@ -33,6 +33,12 @@ app.use(session({
   saveUninitialized: true,
   cookie: { secure: false }
 }));
+app.use(session({
+  secret: 'owner',
+  resave: true,
+  saveUninitialized: true,
+  cookie: { secure: false }
+}));
 app.use(cors());
 app.all('/', function (request, response, next) {
   response.header("Access-Control-Allow-Origin", "*");
