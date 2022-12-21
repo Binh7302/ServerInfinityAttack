@@ -4,18 +4,18 @@ const giftModel = require('../gifts/model');
 const userModel = require('../users/model');
 
 //Lấy thông tin danh sách gift của người chơi
-exports.getQuestOwns = async () => {
+exports.getGiftOwns = async () => {
   const giftown = await giftownModel.find().populate('userID giftID');
   return giftown;
 }
 
 // Lấy gift own bằng userID
-exports.getQuestOwnsByUserID = async (userID) => {
+exports.getGiftOwnsByUserID = async (userID) => {
   const giftown = await giftownModel.find({ userID: userID }).populate('userID giftID');
   return giftown;
 }
 
-exports.getQuestOwnByID = async (id) => {
+exports.getGiftOwnByID = async (id) => {
   const giftown = await giftownModel.findById(id);
   return giftown;
 }
