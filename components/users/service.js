@@ -7,17 +7,17 @@ exports.register = async (username, password, name) => {
 }
 
 exports.findUserByUserName = async (username) => {
-    const user = await userModel.findOne({ username: username }, 'id username password name email gold gem');
+    const user = await userModel.findOne({ username: username }, 'id username password online name email gold gem');
     return user;
 }
 
 exports.findUserByName = async (name) => {
-    const user = await userModel.findOne({ name: name }, 'id username password name email gold gem');
+    const user = await userModel.findOne({ name: name }, 'id username password online name email gold gem');
     return user;
 }
 
 exports.findUserById = async (id) => {
-    const user = await userModel.findOne({ _id: id }, 'id username password name email gold gem');
+    const user = await userModel.findOne({ _id: id }, 'id username password online name email gold gem');
     return user;
 }
 exports.updateGoldUser = async (id, gold) => {
@@ -89,7 +89,7 @@ exports.addAndChangeEmail = async (uid, email) => {
 }
 
 exports.findUserByEmail = async (email) => {
-    const user = await userModel.findOne({ email: email }, 'id username password name email gold gem');
+    const user = await userModel.findOne({ email: email }, 'id username password online name email gold gem');
     return user;
 }
 

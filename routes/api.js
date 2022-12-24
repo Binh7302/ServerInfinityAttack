@@ -24,7 +24,7 @@ router.post('/login', async function (req, res, next) {
 
   // thực hiện kiểm tra đăng nhập
   const result = await userController.login(username, password);
-  console.log(result);
+  console.log("abc"+result);
   return res.json(result);
 });
 
