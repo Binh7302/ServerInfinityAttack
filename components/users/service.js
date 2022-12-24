@@ -2,7 +2,7 @@ const userModel = require('./model');
 const characterOwnModel = require('../characterowns/model');
 
 exports.register = async (username, password, name) => {
-    const user = new userModel({ username, password, name, online: false, gem: 500, gold: 1000 });
+    const user = new userModel({ username, password, name, online: 0, gem: 500, gold: 1000 });
     return await user.save();
 }
 
@@ -94,9 +94,9 @@ exports.findUserByEmail = async (email) => {
 }
 
 exports.SetOnline = async(uid) => {
-    await userModel.findByIdAndUpdate(uid, { online: true });
+    await userModel.findByIdAndUpdate(uid, { online: 1 });
 }
 
 exports.SetOffline = async(uid) => {
-    await userModel.findByIdAndUpdate(uid, { online: false });
+    await userModel.findByIdAndUpdate(uid, { online: 0 });
 }
