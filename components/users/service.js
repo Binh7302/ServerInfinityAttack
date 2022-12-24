@@ -2,22 +2,22 @@ const userModel = require('./model');
 const characterOwnModel = require('../characterowns/model');
 
 exports.register = async (username, password, name) => {
-    const user = new userModel({ username, password, name, online: 0, gem: 500, gold: 1000 });
+    const user = new userModel({ username, password, name, gem: 500, gold: 1000 });
     return await user.save();
 }
 
 exports.findUserByUserName = async (username) => {
-    const user = await userModel.findOne({ username: username }, 'id username password online name email gold gem');
+    const user = await userModel.findOne({ username: username }, 'id username password  name email gold gem');
     return user;
 }
 
 exports.findUserByName = async (name) => {
-    const user = await userModel.findOne({ name: name }, 'id username password online name email gold gem');
+    const user = await userModel.findOne({ name: name }, 'id username password name email gold gem');
     return user;
 }
 
 exports.findUserById = async (id) => {
-    const user = await userModel.findOne({ _id: id }, 'id username password online name email gold gem');
+    const user = await userModel.findOne({ _id: id }, 'id username password name email gold gem');
     return user;
 }
 exports.updateGoldUser = async (id, gold) => {
@@ -89,14 +89,6 @@ exports.addAndChangeEmail = async (uid, email) => {
 }
 
 exports.findUserByEmail = async (email) => {
-    const user = await userModel.findOne({ email: email }, 'id username password online name email gold gem');
+    const user = await userModel.findOne({ email: email }, 'id username password name email gold gem');
     return user;
-}
-
-exports.SetOnline = async(uid) => {
-    await userModel.findByIdAndUpdate(uid, { online: 1 });
-}
-
-exports.SetOffline = async(uid) => {
-    await userModel.findByIdAndUpdate(uid, { online: 0 });
 }
