@@ -38,12 +38,12 @@ exports.login = async (username, password) => {
     const user = await userService.findUserByUserName(username);
     console.log("user: " + user);
     if (!user) return "Account or password error";
-    if(user.online) return "Account has already been online";
+    if (user.online) return "Account has already been online";
     console.log("username: " + username + " password: " + password, "userpassword: " + user.password);
     const checkPassword = await bcrypt.compare(password, user.password);
     console.log("checkPassword: " + checkPassword);
     if (!checkPassword) return "Account or password error";
-    
+
     await userService.SetOnline(user._id);
     return user._id;
 }
@@ -263,7 +263,7 @@ exports.forgotPass = async (newPass, token) => {
 
 exports.generateRememberToken = async (uid) => {
     // tạo code
-    if(uid.trim() ==""){
+    if (uid.trim() == "") {
         return null;
     } else {
         const token = await jwt.sign({ uid: uid }, 'remember', { expiresIn: '10h' });
@@ -280,10 +280,11 @@ exports.checkRememberToken = async (token) => {
         if (error == null) {
             const { uid } = decoded;
             const user = await userService.findUserById(uid);
-            if(user.online){
+            if (user.online) {
                 return "Account has already been online";
+            } else {
+                result = uid;
             }
-            result = uid;
         } else {
             result = "Code was expired";
         }
