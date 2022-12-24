@@ -616,4 +616,10 @@ router.post('/checkRememberToken', async function (req, res, next) {
   return res.json(result);
 });
 
+// http://localhost:3000/api/checkRememberToken
+router.post('/SetOffline', async function (req, res, next) {
+  const { uid } = req.body;
+  await userController.SetOffline(uid);
+});
+
 module.exports = router;

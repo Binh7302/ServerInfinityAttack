@@ -38,10 +38,13 @@ exports.login = async (username, password) => {
     const user = await userService.findUserByUserName(username);
     console.log("user: " + user);
     if (!user) return "Account or password error";
+    if(user.online) return "Account has already been online";
     console.log("username: " + username + " password: " + password, "userpassword: " + user.password);
     const checkPassword = await bcrypt.compare(password, user.password);
     console.log("checkPassword: " + checkPassword);
     if (!checkPassword) return "Account or password error";
+    
+    await userService.SetOnline(user._id);
     return user._id;
 }
 
@@ -276,10 +279,18 @@ exports.checkRememberToken = async (token) => {
         console.log("error remember: " + error);
         if (error == null) {
             const { uid } = decoded;
+            const user = await userService.findUserById(uid);
+            if(user.online){
+                return "Account has already been online";
+            }
             result = uid;
         } else {
             result = "Code was expired";
         }
     });
     return result;
+}
+
+exports.SetOffline = async (uid) => {
+    await userService.SetOffline(uid);
 }
