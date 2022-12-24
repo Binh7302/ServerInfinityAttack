@@ -42,6 +42,7 @@ exports.login = async (username, password) => {
     const checkPassword = await bcrypt.compare(password, user.password);
     console.log("checkPassword: " + checkPassword);
     if (!checkPassword) return "Account or password error";
+
     return user._id;
 }
 
@@ -260,7 +261,7 @@ exports.forgotPass = async (newPass, token) => {
 
 exports.generateRememberToken = async (uid) => {
     // tạo code
-    if(uid.trim() ==""){
+    if (uid.trim() == "") {
         return null;
     } else {
         const token = await jwt.sign({ uid: uid }, 'remember', { expiresIn: '10h' });
@@ -276,7 +277,7 @@ exports.checkRememberToken = async (token) => {
         console.log("error remember: " + error);
         if (error == null) {
             const { uid } = decoded;
-            result = uid;
+                result = uid;
         } else {
             result = "Code was expired";
         }

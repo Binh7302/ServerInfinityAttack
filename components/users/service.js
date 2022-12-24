@@ -2,12 +2,12 @@ const userModel = require('./model');
 const characterOwnModel = require('../characterowns/model');
 
 exports.register = async (username, password, name) => {
-    const user = new userModel({ username, password, name, gem: 0, gold: 0 });
+    const user = new userModel({ username, password, name, gem: 500, gold: 1000 });
     return await user.save();
 }
 
 exports.findUserByUserName = async (username) => {
-    const user = await userModel.findOne({ username: username }, 'id username password name email gold gem');
+    const user = await userModel.findOne({ username: username }, 'id username password  name email gold gem');
     return user;
 }
 

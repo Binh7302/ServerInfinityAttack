@@ -24,7 +24,7 @@ router.post('/login', async function (req, res, next) {
 
   // thực hiện kiểm tra đăng nhập
   const result = await userController.login(username, password);
-  console.log(result);
+  console.log("abc"+result);
   return res.json(result);
 });
 
@@ -545,7 +545,7 @@ async function ResetDaily() {
 }
 
 // http://localhost:3000/api/changePassword
-router.post('/changePassword', async function (req, res, next) {
+router.post('/changePassword', async function (req,res, next) {
   const { uid, pass, newPass } = req.body;
   const result = await userController.changePassword(uid, pass, newPass);
   console.log("result change password: " + result);
@@ -614,6 +614,12 @@ router.post('/checkRememberToken', async function (req, res, next) {
   const result = await userController.checkRememberToken(token);
   console.log("result forgot pass: " , result);
   return res.json(result);
+});
+
+// http://localhost:3000/api/checkRememberToken
+router.post('/SetOffline', async function (req, res, next) {
+  const { uid } = req.body;
+  await userController.SetOffline(uid);
 });
 
 module.exports = router;
