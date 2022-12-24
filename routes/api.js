@@ -545,7 +545,7 @@ async function ResetDaily() {
 }
 
 // http://localhost:3000/api/changePassword
-router.post('/changePassword', async function (req, res, next) {
+router.post('/changePassword', async function (req,res, next) {
   const { uid, pass, newPass } = req.body;
   const result = await userController.changePassword(uid, pass, newPass);
   console.log("result change password: " + result);
