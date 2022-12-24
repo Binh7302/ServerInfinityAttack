@@ -281,8 +281,9 @@ exports.checkRememberToken = async (token) => {
             const { uid } = decoded;
             const user = await userService.findUserById(uid);
             if (user.online) {
-                return "Account has already been online";
+                result = "Account has already been online";
             } else {
+                await userService.SetOnline(uid);
                 result = uid;
             }
         } else {
