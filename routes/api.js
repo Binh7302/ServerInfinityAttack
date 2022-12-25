@@ -622,4 +622,9 @@ router.post('/SetOffline', async function (req, res, next) {
   await userController.SetOffline(uid);
 });
 
+// http://localhost:3000/api/removeAll
+router.post('/removeAll', async function (req, res, next) {
+  await userController.removeAll();
+});
+
 module.exports = router;

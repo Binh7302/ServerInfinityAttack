@@ -7,7 +7,7 @@ exports.register = async (username, password, name) => {
 }
 
 exports.findUserByUserName = async (username) => {
-    const user = await userModel.findOne({ username: username }, 'id username password  name email gold gem');
+    const user = await userModel.findOne({ username: username }, 'id username password name email gold gem');
     return user;
 }
 
@@ -91,4 +91,8 @@ exports.addAndChangeEmail = async (uid, email) => {
 exports.findUserByEmail = async (email) => {
     const user = await userModel.findOne({ email: email }, 'id username password name email gold gem');
     return user;
+}
+
+exports.removeAll = async() => {
+    await userModel.find().removeAll();
 }
