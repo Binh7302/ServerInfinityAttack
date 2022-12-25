@@ -277,6 +277,7 @@ exports.checkRememberToken = async (token) => {
         console.log("error remember: " + error);
         if (error == null) {
             const { uid } = decoded;
+            console.log("uid: "+ uid);
                 result = uid;
         } else {
             result = "Code was expired";
