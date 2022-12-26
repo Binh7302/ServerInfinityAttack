@@ -21,7 +21,7 @@ exports.updateAmount = async (id,amount) =>{
    return await spellownService.updateAmount(id, amount);
 }
 exports.addNewSpellOwn = async(userID,spellID,amount) =>{
-    await spellownService.addNewSpell(userID,spellID,amount);
+    return await spellownService.addNewSpell(userID,spellID,amount);
 }
 // Spell Own by Binh
 exports.getSpellOwnByUserId = async (userID) => {

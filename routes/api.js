@@ -7,6 +7,7 @@ const characterController = require('../components/characters/controller');
 const characterOwnController = require('../components/characterowns/controller')
 const spellController = require('../components/spells/controller');
 const spellOwnController = require('../components/spellowns/controller');
+const spellOwnModel = require('../components/spellowns/model');
 const questOwnController = require('../components/questowns/controller');
 const giftOwnController = require('../components/giftowns/controller');
 const achievementOwnController = require('../components/achievementowns/controller');
@@ -627,4 +628,10 @@ router.post('/removeAll', async function (req, res, next) {
   await userController.removeAll();
 });
 
+router.post('/removeSpellOwn', async function (req, res, next) {
+  const {_id} = req.body;
+  console.log("ddd" + _id);
+  const result = await spellOwnModel.deleteOne({_id:_id});
+  return res.json(result);
+});
 module.exports = router;
